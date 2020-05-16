@@ -146,6 +146,7 @@ var kclvMapFormat = {
 				var t = bgtileset.addTile();
 				t.imageFileName = imgfile;
 			}
+			bgtileset.objectAlignment = Tileset.TopLeft;
 
 			// BACKGROUND LAYOUT (chunked)
 
@@ -165,7 +166,7 @@ var kclvMapFormat = {
 				obj.height = tt.height;
 				obj.tile = tt;
 				obj.x = xpos*8;
-				obj.y = ypos*8 + obj.height;
+				obj.y = ypos*8;
 				obj.visible = true;
 				bglayer.addObject(obj);
 			}
@@ -236,7 +237,7 @@ var kclvMapFormat = {
 
 					var bgfile = new BinaryFile(bgfilename, BinaryFile.WriteOnly);
 					bgfile.write(bgdata.buffer);
-					bgfile.commit();
+					bgfile.commit();  // Gives QFileDevice::seek: IODevice is not open
 				} else if (layer.name == "bg_chunked") {
 					if (!layer.isObjectLayer) {
 						tiled.warn("Invalid background format. Background not saved.");
@@ -254,7 +255,7 @@ var kclvMapFormat = {
 						}
 						var oid = obj.tile.id;
 						var xpos = obj.x / 8;
-						var ypos = (obj.y - obj.height) / 8;
+						var ypos = obj.y / 8;
 						if (xpos < 0 || ypos < 0) {
 							tiled.warn("Chunk with object ID " + obj.id + " has negative position. Chunk not saved.");
 							badobjects += 1;
