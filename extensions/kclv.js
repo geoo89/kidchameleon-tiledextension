@@ -4,18 +4,15 @@ var kclvMapFormat = {
 
 	//Function for reading from a kclv file
 	read: function(fileName) {
-		var path = fileName.replace(/[\\\/][^\\\/]*$/, '/');
-		var name_only = fileName.replace(/^.*[\\\/]/, '');
-		var kcfile = new TextFile(fileName, TextFile.ReadOnly);
-		var kclv = JSON.parse(kcfile.readAll());
-		kcfile.close();
+		var kclv = get_kclv(fileName);
+		var repo_path = get_repo_path(fileName);
+		if (repo_path == null) {
+			return null;
+		}
 
-		// tiled.warn(tiled.tilesetFormats);
-		// var blockfilename = path + kclv.block;
-		// var enemyfilename = path + kclv.enemy;
-		var bgfilename = path + kclv.background;
-		var scrollfilename = path + kclv.bgscroll;
-		var headerfilename = path + kclv.header;
+		var bgfilename = repo_path + kclv.background;
+		var scrollfilename = repo_path + kclv.bgscroll;
+		var headerfilename = repo_path + kclv.header;
 		var header = get_header(headerfilename);
 
 		var tilemap = new TileMap();
@@ -33,7 +30,7 @@ var kclvMapFormat = {
 		// SCROLLING TILES
 
 		var scrolltileset = new Tileset("bgscroll");
-		scrolltileset.image = path + "bgscroll.png";
+		scrolltileset.image = repo_path + "tiled/bgscroll.png";
 		scrolltileset.tileWidth = 512;
 		scrolltileset.tileHeight = 8;
 
@@ -82,9 +79,9 @@ var kclvMapFormat = {
 
 			var bgtileset = new Tileset("bgchunks_layered");
 			if (header.bgtheme == "mountain" && header.weather_flags) {
-				bgtileset.image = path + "bgchunks/" + header.bgtheme + "_storm.png";
+				bgtileset.image = repo_path + "tiled/bgchunks/" + header.bgtheme + "_storm.png";
 			} else {
-				bgtileset.image = path + "bgchunks/" + header.bgtheme + ".png";
+				bgtileset.image = repo_path + "tiled/bgchunks/" + header.bgtheme + ".png";
 			}
 			bgtileset.tileWidth = 512;
 			bgtileset.tileHeight = 8;
@@ -136,7 +133,7 @@ var kclvMapFormat = {
 		    // BACKGROUND CHUNKS (chunked)
 
 			var bgtileset = new Tileset("bgchunks_chunked");
-			bgimg_path = path + "bgchunks/" + header.bgtheme + "/";
+			bgimg_path = repo_path + "tiled/bgchunks/" + header.bgtheme + "/";
 			for (var i = 0; i < header.n_bgchunks; ++i) { // TODO: Infer number of bg chunks
 				str_i = i.toString(16).toUpperCase();
 				if (i < 16) {
@@ -183,14 +180,15 @@ var kclvMapFormat = {
 
 
 	write: function(map, fileName) {
-		var path = fileName.replace(/[\\\/][^\\\/]*$/, '/');
-		var kcfile = new TextFile(fileName, TextFile.ReadOnly);
-		var kclv = JSON.parse(kcfile.readAll());
-		kcfile.close();
+		var kclv = get_kclv(fileName);
+		var repo_path = get_repo_path(fileName);
+		if (repo_path == null) {
+			return null;
+		}
 
-		var bgfilename = path + kclv.background;
-		var scrollfilename = path + kclv.bgscroll;
-		var headerfilename = path + kclv.header;
+		var bgfilename = repo_path + kclv.background;
+		var scrollfilename = repo_path + kclv.bgscroll;
+		var headerfilename = repo_path + kclv.header;
 		var header = get_header(headerfilename);
 
 		var scrolling_found = false;
@@ -210,13 +208,13 @@ var kclvMapFormat = {
 					bglayout_found = true;
 					if (header.bgtheme == "desert") {
 						var hdsize = 2;  // header size. 2 for desert
-						if (layer.property("desert_unused_value") != null) { //undefined
-							bgdata[1] = layer.property("desert_unused_value");
-						}
 					} else {
 						var hdsize = 1;  // header size. 1 for everything else.
 					}
 					bgdata = Uint8Array(layer.height + hdsize);
+					if (layer.property("desert_unused_value") != null) { //undefined
+						bgdata[1] = layer.property("desert_unused_value");
+					}
 					if (layer.property("ripple_effect_layer") == null) { //undefined
 						tiled.warn("ripple_effect_layer undefined. Using 0.");
 					} else {
