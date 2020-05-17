@@ -27,12 +27,14 @@ var kclvMapFormat = {
 		tilemap.setProperty("mode", "background");
 
 
-		// SCROLLING TILES
+		// SCROLLING TILESET
 
-		var scrolltileset = new Tileset("bgscroll");
-		scrolltileset.image = repo_path + "tiled/bgscroll.png";
-		scrolltileset.tileWidth = 512;
-		scrolltileset.tileHeight = 8;
+		var scrolltileset_path = repo_path + "tiled/bgscroll.tsx";
+		var scrolltileset = tiled.tilesetFormat("tsx").read(scrolltileset_path);
+		if (scrolltileset == null) {
+			tiled.error("Tileset file " + scrolltileset_path + " not found.");
+			return;
+		}
 
 
 		// SCROLLING LAYOUT
@@ -73,18 +75,21 @@ var kclvMapFormat = {
 		scrolledit.apply();
 
 
+		// BACKGROUND CHUNKS TILESET
+
+		if (header.bgtheme == "mountain" && header.weather_flags) {
+			var bgtileset_path = repo_path + "tiled/bgchunks/" + header.bgtheme + "_storm.tsx"
+		} else {
+			var bgtileset_path = repo_path + "tiled/bgchunks/" + header.bgtheme + ".tsx"
+		}
+		var bgtileset = tiled.tilesetFormat("tsx").read(bgtileset_path);
+		if (bgtileset == null) {
+			tiled.error("Tileset file " + bgtileset_path + " not found.");
+			return;
+		}
+
+
 		if (header.bg_is_layered) {
-
-			// BACKGROUND CHUNKS (layered)
-
-			var bgtileset = new Tileset("bgchunks_layered");
-			if (header.bgtheme == "mountain" && header.weather_flags) {
-				bgtileset.image = repo_path + "tiled/bgchunks/" + header.bgtheme + "_storm.png";
-			} else {
-				bgtileset.image = repo_path + "tiled/bgchunks/" + header.bgtheme + ".png";
-			}
-			bgtileset.tileWidth = 512;
-			bgtileset.tileHeight = 8;
 
 			// BACKGROUND LAYOUT (layered)
 
@@ -129,22 +134,6 @@ var kclvMapFormat = {
 			bgedit.apply();
 
 		} else {
-
-		    // BACKGROUND CHUNKS (chunked)
-
-			var bgtileset = new Tileset("bgchunks_chunked");
-			bgimg_path = repo_path + "tiled/bgchunks/" + header.bgtheme + "/";
-			for (var i = 0; i < header.n_bgchunks; ++i) { // TODO: Infer number of bg chunks
-				str_i = i.toString(16).toUpperCase();
-				if (i < 16) {
-					str_i = '0' + str_i;
-				}
-				var imgfile = bgimg_path + str_i + ".png";
-				var t = bgtileset.addTile();
-				t.imageFileName = imgfile;
-			}
-			bgtileset.objectAlignment = Tileset.TopLeft;
-
 			// BACKGROUND LAYOUT (chunked)
 
 			var bgfile = new BinaryFile(bgfilename, BinaryFile.ReadOnly);
@@ -225,10 +214,10 @@ var kclvMapFormat = {
 						if (layer.tileAt(0, y) == null) {
 							tiled.warn("Empty background tile in layer " + y + ". Using ID 0.");
 						} else {
-							if (layer.tileAt(0, y).tileset.name == "bgchunks_layered") {
+							if (layer.tileAt(0, y).tileset.name == "bgchunks_layered_" + header.bgtheme) {
 								bgdata[hdsize+y] = layer.tileAt(0, y).id;
 							} else {
-								tiled.warn("Tile from invalid tileset on bg_layered layer. Using ID 0.");
+								tiled.warn("Tile from invalid tileset on bg_layered layer " + y + ". Using ID 0.");
 							}
 						}
 					}
@@ -246,7 +235,7 @@ var kclvMapFormat = {
 					badobjects = 0;
 					for (var i = 0; i < layer.objectCount; ++i) {
 						var obj = layer.objectAt(i);
-						if (obj.tile == null || obj.tile.tileset.name != "bgchunks_chunked") {
+						if (obj.tile == null || obj.tile.tileset.name != "bgchunks_chunked_" + header.bgtheme) {
 							tiled.warn("Chunk with object ID " + obj.id + " is invalid. Chunk not saved.");
 							badobjects += 1;
 							continue;
@@ -291,7 +280,7 @@ var kclvMapFormat = {
 							if (layer.tileAt(0, y).tileset.name == "bgscroll") {
 								scrdata[y] = layer.tileAt(0, y).id << 3;
 							} else {
-								tiled.warn("Tile from invalid tileset on bg_layered layer. Using no scrolling.");
+								tiled.warn("Tile from invalid tileset on bg_layered layer " + y + ". Using no scrolling.");
 								scrdata[y] = 0x10;
 							}
 						}
