@@ -4,7 +4,7 @@ to support level editing in Kid Chameleon using its
 
 # Setup
 
-Install a recent version of [Tiled](https://www.mapeditor.org/).
+Install the latest snapshot or version 1.4 or later of [Tiled](https://www.mapeditor.org/).
 Locate its _extensions_ folder. This should be as described in the
 [documentation](https://doc.mapeditor.org/en/latest/reference/scripting/#scripted-extensions),
 or alternatively open Tiled, and in the menu select _Edit -> Preferences -> Plugins_;

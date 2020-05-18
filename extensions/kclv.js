@@ -200,7 +200,7 @@ var kclvMapFormat = {
 					} else {
 						var hdsize = 1;  // header size. 1 for everything else.
 					}
-					bgdata = Uint8Array(layer.height + hdsize);
+					bgdata = new Uint8Array(layer.height + hdsize);
 					if (layer.property("desert_unused_value") != null) { //undefined
 						bgdata[1] = layer.property("desert_unused_value");
 					}
@@ -231,7 +231,7 @@ var kclvMapFormat = {
 						continue;
 					}
 					bglayout_found = true;
-					bgdata = Uint8Array(6*layer.objectCount+2);
+					bgdata = new Uint8Array(6*layer.objectCount+2);
 					badobjects = 0;
 					for (var i = 0; i < layer.objectCount; ++i) {
 						var obj = layer.objectAt(i);
@@ -269,7 +269,7 @@ var kclvMapFormat = {
 						continue;
 					}
 					scrolling_found = true;
-					scrdata = Uint8Array(layer.height + 1);
+					scrdata = new Uint8Array(layer.height + 1);
 					scrdata[layer.height] = 0xFF;
 
 					for (var y = 0; y < layer.height; ++y) {
