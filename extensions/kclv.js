@@ -222,9 +222,10 @@ var kclvMapFormat = {
 						}
 					}
 
-					var bgfile = new BinaryFile(bgfilename, BinaryFile.WriteOnly);
+					var bgfile = new BinaryFile(bgfilename, BinaryFile.ReadWrite);
+					bgfile.resize(0);  // workaround...
 					bgfile.write(bgdata.buffer);
-					bgfile.commit();  // Gives QFileDevice::seek: IODevice is not open
+					bgfile.commit();
 				} else if (layer.name == "bg_chunked") {
 					if (!layer.isObjectLayer) {
 						tiled.warn("Invalid background format. Background not saved.");
@@ -260,9 +261,10 @@ var kclvMapFormat = {
 					bgdata[6*(layer.objectCount-badobjects)+1] = 0xFF;
 					bgdata = bgdata.subarray(0, 6*(layer.objectCount-badobjects)+2); // drop last bytes if there are invalid objects
 
-					var bgfile = new BinaryFile(bgfilename, BinaryFile.WriteOnly);
+					var bgfile = new BinaryFile(bgfilename, BinaryFile.ReadWrite);
+					bgfile.resize(0);  // workaround...
 					bgfile.write(bgdata.buffer.slice(0, 6*(layer.objectCount-badobjects)+2));
-					bgfile.commit();  // Gives QFileDevice::seek: IODevice is not open
+					bgfile.commit();
 				} else if (layer.name == "scrolling") {
 					if (!layer.isTileLayer) {
 						tiled.warn("Invalid scrolling format. Background scrolling not saved.");
@@ -286,9 +288,10 @@ var kclvMapFormat = {
 						}
 					}
 
-					var scrfile = new BinaryFile(scrollfilename, BinaryFile.WriteOnly);
+					var scrfile = new BinaryFile(scrollfilename, BinaryFile.ReadWrite);
+					scrfile.resize(0);  // workaround...
 					scrfile.write(scrdata.buffer);
-					scrfile.commit();  // Gives QFileDevice::seek: IODevice is not open
+					scrfile.commit();
 				}
 			}
 

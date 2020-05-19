@@ -7,6 +7,7 @@ var get_header = function(filename) {
 
 	var headerfile = new BinaryFile(filename, BinaryFile.ReadOnly);
 	var header = new Uint8Array(headerfile.readAll());
+	headerfile.close();
 
 	var fgtheme_id = header[2] & 0x0F;
 	var bgtheme_id = header[3] & 0x0F;
