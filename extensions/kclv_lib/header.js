@@ -1,7 +1,7 @@
 var get_header = function(filename) {
 
     var themes = ["hex", "sky", "ice", "hill", "island", "desert", "swamp", "mountain", "cave", "forest", "city"];
-    var thchunks = [0, 32, 36, 56, 12, 56, 27, 56, 21, 56, 12];
+    var thchunks = [0, 32, 36, 56, 13, 56, 27, 56, 21, 56, 14];
     var layered_bgs = [3, 5, 7, 9];
     // var bgformats = [0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0];  // 1 = layered, 0 = chunked
 

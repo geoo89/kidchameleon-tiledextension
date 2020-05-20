@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.4" name="bgchunks_chunked_island" tilewidth="168" tileheight="104" tilecount="12" columns="0" objectalignment="topleft">
+<tileset version="1.2" tiledversion="1.3.4" name="bgchunks_chunked_island" tilewidth="168" tileheight="104" tilecount="13" columns="0" objectalignment="topleft">
  <grid orientation="orthogonal" width="0" height="0"/>
  <tile id="0">
   <image width="80" height="16" source="island/00.png"/>
@@ -36,5 +36,8 @@
  </tile>
  <tile id="11">
   <image width="88" height="16" source="island/0B.png"/>
+ </tile>
+ <tile id="12">
+  <image width="152" height="16" source="island/0C.png"/>
  </tile>
 </tileset>

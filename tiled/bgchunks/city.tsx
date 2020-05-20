@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.4" name="bgchunks_chunked_city" tilewidth="80" tileheight="208" tilecount="12" columns="0" objectalignment="topleft">
+<tileset version="1.2" tiledversion="1.3.4" name="bgchunks_chunked_city" tilewidth="80" tileheight="208" tilecount="14" columns="0" objectalignment="topleft">
  <grid orientation="orthogonal" width="0" height="0"/>
  <tile id="0">
   <image width="72" height="24" source="city/00.png"/>
@@ -36,5 +36,11 @@
  </tile>
  <tile id="11">
   <image width="80" height="104" source="city/0B.png"/>
+ </tile>
+ <tile id="12">
+  <image width="80" height="64" source="city/0C.png"/>
+ </tile>
+ <tile id="13">
+  <image width="8" height="8" source="city/0D.png"/>
  </tile>
 </tileset>

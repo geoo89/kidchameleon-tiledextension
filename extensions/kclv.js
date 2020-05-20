@@ -147,6 +147,7 @@ var kclvMapFormat = {
 				var xpos = (bgdata[6*i + 2]<<8) + bgdata[6*i + 3];
 				var ypos = (bgdata[6*i + 4]<<8) + bgdata[6*i + 5];
 				var obj = new MapObject();
+				// TODO: Maybe check for invalid IDs and warn and place blank tile.
 				var tt = bgtileset.tile(oid);
 				obj.width = tt.width;
 				obj.height = tt.height;
