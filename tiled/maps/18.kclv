@@ -5,6 +5,6 @@
 	"background":	"level/background/18.bin",
 	"bgscroll":		"level/bgscroll/18.bin",
 	"enemy":		"level/enemy/18.bin",
-	"platform":		"level/platform/18.bin",
+	"platform":		"level/platform/18.asm",
 	"block":		"level/block/18.bin"
 }
