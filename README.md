@@ -31,6 +31,10 @@ to the disassembly folder.
 
 # Background editing
 
+Currently disabled. In the `extensions/` folder, rename `kclv_bg.txt` to 
+`kclv_bg.js` and rename `kclv.js` to `kclv.txt` to activate backgrounds 
+and disable foregrounds.
+
 When opening a level in Tiled, on the right-hand side a _Tilesets_ tab
 and a _Layers_ tab will appear. Each contains a tileset and layer for
 the background layout and the background scrolling data.
@@ -53,3 +57,38 @@ selected tile from the tileset. When modifying scrolling data, note
 that unlike in the layered format, due to the different grid size you
 have to click within the leftmost 8 pixels of the background layout
 to modify it.
+
+# Foreground editing
+
+Currently, only blocks and layout are supported, no enemies and no
+ghost blocks or teleporters. __Ghost blocks and teleporters will be
+removed from any level you open and save.__
+
+Foreground editing has Tiled invoke some external compression tools.
+Download `compress.exe` and `decompress.exe` from
+https://github.com/sonicretro/kid-chameleon-disasm/tree/master/tools
+and place them in the `extensions/` folder. Compile `compress_blocks.exe`
+from `src/compress_blocks.cpp` and also place it in the `extensions/` folder.
+On Linux, you'll have to compile all of these yourself.
+
+Currently, Tiled does not support directly invoking external commands,
+so we have to use a workaround.
+In Tiled, go to _File -> Commands -> Edit Commands_, and
+add the following three commands, replacing
+`path/to/repository/` as appropriate with the path to your copy of the
+disassembly and `path/to/extensions/` with the path to your tiled extensions
+(and dropping the `.exe` if you're not on Windows).
+
+```
+Name: kc_decompress
+Command: /path/to/extensions/decompress.exe tmpin.bin tmpout.bin
+Working directory: /path/to/repository/tiled
+
+Name: kc_compress
+Command: /path/to/extensions/compress.exe tmpin.bin tmpout.bin
+Working directory: /path/to/repository/tiled
+
+Name: kc_compress_blocks
+Command: /path/to/extensions/compress_blocks.exe tmpin.bin tmpout.bin
+Working directory: /path/to/repository/tiled
+```

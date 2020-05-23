@@ -36,8 +36,23 @@ var decompress = function(indata, path) {
 	return run_compression_command(indata, path, "kc_decompress");
 }
 
+// Compress data using the KC compression format.
+// indata: Uint8Array containing the data
+// path: location for temp files, must have write access.
+//       by convention, this should be the tiled/ subfolder of the disasm.
+// @returns: a Uint8Array containing the decompressed data.
 var compress = function(indata, path) {
 	return run_compression_command(indata, path, "kc_compress");
+}
+
+// Compress block data provided in expanded .kcm format into the format
+// internally used by the game.
+// indata: Uint8Array containing the data
+// path: location for temp files, must have write access.
+//       by convention, this should be the tiled/ subfolder of the disasm.
+// @returns: a Uint8Array containing the decompressed data.
+var compress_blocks = function(indata, path) {
+	return run_compression_command(indata, path, "kc_compress_blocks");
 }
 
 // Compress data using the KC compression format.
