@@ -1,0 +1,9 @@
+{
+    "automappingRulesFile": "",
+    "extensionsPath": "extensions",
+    "folders": [
+        "maps",
+        "templates"
+    ],
+    "objectTypesFile": ""
+}

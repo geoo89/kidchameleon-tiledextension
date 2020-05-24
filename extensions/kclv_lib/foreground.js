@@ -13,9 +13,7 @@ var save_foreground = function(layer, filename, fgtheme, compression_path) {
 
 	for (var y = 0; y < layer.height; ++y) {
 		for (var x = 0; x < layer.width; ++x) {
-			if (layer.tileAt(x, y) == null) {
-				tiled.warn("Empty foreground tile at (" + x + ", " + y + "). Using ID 0.");
-			} else {
+			if (layer.tileAt(x, y) != null && layer.tileAt(x, y).tileset != null) {
 				if (layer.tileAt(x, y).tileset.name == "foreground_" + fgtheme) {
 					fgdata[x + layer.width*y] = layer.tileAt(x, y).id;
 				} else {

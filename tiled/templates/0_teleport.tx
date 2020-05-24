@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <tileset firstgid="0" source="../objects.tsx"/>
+ <object gid="2" width="32" height="16">
+  <properties>
+   <property name="destmapid" type="int" value="0"/>
+   <property name="destx" type="int" value="0"/>
+   <property name="desty" type="int" value="0"/>
+   <property name="objtype" value="teleport"/>
+  </properties>
+ </object>
+</template>

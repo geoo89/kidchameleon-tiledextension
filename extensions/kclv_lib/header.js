@@ -6,13 +6,13 @@ var get_header = function(filename) {
     // var bgformats = [0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0];  // 1 = layered, 0 = chunked
 
 	var headerfile = new BinaryFile(filename, BinaryFile.ReadOnly);
-	var header = new Uint8Array(headerfile.readAll());
+	var data = new Uint8Array(headerfile.readAll());
 	headerfile.close();
 
-	var fgtheme_id = header[2] & 0x0F;
-	var bgtheme_id = header[3] & 0x0F;
-	var xsize_screens = header[0];
-	var ysize_screens = header[1] & 0x3F;
+	var fgtheme_id = data[2] & 0x0F;
+	var bgtheme_id = data[3] & 0x0F;
+	var xsize_screens = data[0];
+	var ysize_screens = data[1] & 0x3F;
 	var is_layered = layered_bgs.indexOf(bgtheme_id) >= 0;
 
 	return {
@@ -28,11 +28,27 @@ var get_header = function(filename) {
 		bgtheme: themes[bgtheme_id],
 		bg_is_layered: is_layered,
 		n_bgchunks: thchunks[bgtheme_id],
-		kidx: (header[4]<<8) | header[5],
-		kidy: (header[6]<<8) | header[7],
-		flagx: (header[8]<<8) | header[9],
-		flagy: (header[10]<<8) | header[11],
-		murderwall_flags: (header[2] & 0xC0) >> 6,
-		weather_flags: (header[3] & 0xF0) >> 4
+		kidx: (data[4]<<8) | data[5],
+		kidy: (data[6]<<8) | data[7],
+		flagx: (data[8]<<8) | data[9] - ((data[8]<<9)&0x10000),  // read as signed value
+		flagy: (data[10]<<8) | data[11] - ((data[10]<<9)&0x10000),  // read as signed value
+		murderwall_flags: (data[2] & 0xC0) >> 6,
+		weather_flags: (data[3] & 0xF0) >> 4
 	}
+}
+
+var write_header = function(filename, header) {
+	var headerfile = new BinaryFile(filename, BinaryFile.ReadWrite);
+	var data = new Uint8Array(headerfile.readAll());
+	data[4] = header.kidx >> 8;
+	data[5] = header.kidx & 0xFF;
+	data[6] = header.kidy >> 8;
+	data[7] = header.kidy & 0xFF;
+	data[8] = header.flagx >> 8;
+	data[9] = header.flagx & 0xFF;
+	data[10] = header.flagy >> 8;
+	data[11] = header.flagy & 0xFF;
+	headerfile.seek(0);
+	headerfile.write(data.buffer);
+	headerfile.close();	
 }

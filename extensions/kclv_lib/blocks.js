@@ -2,7 +2,7 @@
 // data: Uint8Array containing block data
 // layer: EditableLayer to place the blocks on
 // tileset: Tileset containing the block tiles.
-var blocks_to_layer = function(data, layer, tileset) {
+var blocks_to_layer = function(data, layer, tileset, enemylayer, enemytileset) {
 	var bs = new Bitstream(data);
 	var trash = bs.read(8);
 	var xbits = bs.read(4);
@@ -42,16 +42,55 @@ var blocks_to_layer = function(data, layer, tileset) {
 					xpos += xd;	
 					ypos += yd;	
 				}
-			} else if (block_type == 3) {
-				// Ghost block
-				trash = bs.read(31);
-			} else if (block_type == 4) {
-				// Telepad
-				trash = bs.read(25);
 			} else if (block_type == 11) {
 				// Elevator
 				layer.setTile(xpos, ypos, tileset.tile(baseid));
-			}
+			} else if (block_type == 3) {
+				// Ghost block
+				var nblocks = bs.read(3);
+				var direction = bs.read(1);
+				var time_delay = bs.read(8);
+				var time_visible = bs.read(11);
+				var time_invisible = bs.read(8);
+				for (var i = 0; i < nblocks+1; ++i) {
+					var ghostobj = new MapObject();
+					var tt = enemytileset.tile(3);
+					ghostobj.tile = tt;
+					ghostobj.width = tt.width;
+					ghostobj.height = tt.height;
+					ghostobj.x = xpos*16 + 8;
+					ghostobj.y = ypos*16 + 16;
+					ghostobj.visible = true;
+					ghostobj.setProperty("objtype", "ghostblock");
+					ghostobj.setProperty("time_delay", time_delay);
+					ghostobj.setProperty("time_visible", time_visible);
+					ghostobj.setProperty("time_invisible", time_invisible);
+					enemylayer.addObject(ghostobj);
+					if (direction) {
+						ypos += 1;
+					} else {
+						xpos += 1;
+					}
+				}
+			} else if (block_type == 4) {
+				// Telepad
+				var destmapid = bs.read(8);
+				var desty = bs.read(8);
+				var destx = bs.read(9);
+				var teleobj = new MapObject();
+				var tt = enemytileset.tile(2);
+				teleobj.tile = tt;
+				teleobj.width = tt.width;
+				teleobj.height = tt.height;
+				teleobj.x = xpos*16 + 16;
+				teleobj.y = ypos*16 + 16;
+				teleobj.visible = true;
+				teleobj.setProperty("objtype", "teleport");
+				teleobj.setProperty("destmapid", destmapid);
+				teleobj.setProperty("destx", destx);
+				teleobj.setProperty("desty", desty);
+				enemylayer.addObject(teleobj);
+			} 
 
 			xpos = bs.read(xbits);
 		}
@@ -120,6 +159,18 @@ var layer_to_kcm_blocks = function(layer) {
 	return data;
 }
 
+var load_blocks = function(filename, header, tileset, enemylayer, enemytileset) {
+	var layer = new TileLayer("blocks");
+	layer.width = header.fgxsize_blocks;
+	layer.height = header.fgysize_blocks;
+	// Get an editable version of the tile layer.
+	var layer_edit = layer.edit();
+	var file = new BinaryFile(filename, BinaryFile.ReadOnly);
+	var data = new Uint8Array(file.readAll());
+	blocks_to_layer(data, layer_edit, tileset, enemylayer, enemytileset);
+	layer_edit.apply();
+	return layer;
+}
 
 var save_blocks = function(kcmdata, filename, compression_path) {
 	var data = compress_blocks(kcmdata, compression_path);

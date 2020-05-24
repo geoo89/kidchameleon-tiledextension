@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <tileset firstgid="0" source="../objects.tsx"/>
+ <object gid="3" width="16" height="16">
+  <properties>
+   <property name="time_delay" type="int" value="1"/>
+   <property name="time_visible" type="int" value="40"/>
+   <property name="time_invisible" type="int" value="40"/>
+   <property name="objtype" value="teleport"/>
+  </properties>
+ </object>
+</template>

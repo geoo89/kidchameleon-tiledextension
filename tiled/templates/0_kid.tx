@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <tileset firstgid="0" source="../objects.tsx"/>
+ <object gid="0" width="20" height="32">
+  <properties>
+   <property name="objtype" value="kid"/>
+  </properties>
+ </object>
+</template>

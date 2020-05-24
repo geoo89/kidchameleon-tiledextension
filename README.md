@@ -60,9 +60,7 @@ to modify it.
 
 # Foreground editing
 
-Currently, only blocks and layout are supported, no enemies and no
-ghost blocks or teleporters. __Ghost blocks and teleporters will be
-removed from any level you open and save.__
+No platforms are supported at this point, only terrain, blocks and enemies.
 
 Foreground editing has Tiled invoke some external compression tools.
 Download `compress.exe` and `decompress.exe` from
@@ -92,3 +90,18 @@ Name: kc_compress_blocks
 Command: /path/to/extensions/compress_blocks.exe tmpin.bin tmpout.bin
 Working directory: /path/to/repository/tiled
 ```
+
+To add an object to a map, open the project `tiled/kidchameleon.tiled-project`
+or after opening a map, select _Project -> Add folder to project_ and pick the
+templates folder. Make sure you have the objects layer active. Then on the left
+in the _Project_ tab, you should have access to all templates, and you can drag
+them into the level. On the object, right-click and select _Detach_. (This is
+necessary in order to be able to save templated objects to the enemy layout.)
+On the left in the _Properties_ tab, you can change the custom properties
+_level_ and _respawn_. Teleporters and ghost blocks are objects whose
+parameters are also editable in the _Properties_ tab.
+
+Tiled allows you to add any kind of tiles to any layer, so it is easy to
+accidentally add blocks to the terrain layer or vice versa. The _Highlight
+current layer_ feature in the bottom right of the _Layers_ tab should help
+you notice when you are doing that.
