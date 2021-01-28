@@ -1,0 +1,20 @@
+{
+    "artcomp_bg": "theme/artcomp_bg/mountain.bin", 
+    "artcomp_fg": "theme/artcomp_fg/mountain.bin", 
+    "artdec_bg": "theme/artdec_bg/mountain.bin", 
+    "bg_chunks": "theme/bg_chunks/mountain.bin", 
+    "bg_is_layered": true, 
+    "bgtileset": "tiled/background/mountain.tsx", 
+    "bgtileset_storm": "tiled/background/mountain_storm.tsx",
+    "collision": "theme/collision/mountain.bin", 
+    "fgtileset": "tiled/foreground/mountain.tsx", 
+    "mappings": "theme/mappings/mountain.bin", 
+    "name": "mountain", 
+    "palette_bg": "theme/palette_bg/mountain.bin", 
+    "palette_fg": "theme/palette_fg/mountain.bin", 
+    "palette_permutation_bg": "theme/palette_permutations/mountain_bg.bin", 
+    "palette_permutation_fg": "theme/palette_permutations/mountain_fg.bin", 
+    "titlecard_artcomp": "theme/titlecard/artcomp/mountain.bin", 
+    "titlecard_mapeni": "theme/titlecard/mapeni/mountain.bin", 
+    "titlecard_palette": "theme/titlecard/palette/mountain.bin"
+}

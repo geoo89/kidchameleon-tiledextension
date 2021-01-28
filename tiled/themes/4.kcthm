@@ -1,0 +1,19 @@
+{
+    "artcomp_bg": "theme/artcomp_bg/island.bin", 
+    "artcomp_fg": "theme/artcomp_fg/island.bin", 
+    "artdec_bg": "theme/artdec_bg/island.bin", 
+    "bg_chunks": "theme/bg_chunks/island.bin", 
+    "bg_is_layered": false, 
+    "bgtileset": "tiled/background/island.tsx", 
+    "collision": "theme/collision/island.bin", 
+    "fgtileset": "tiled/foreground/island.tsx", 
+    "mappings": "theme/mappings/island.bin", 
+    "name": "island", 
+    "palette_bg": "theme/palette_bg/island.bin", 
+    "palette_fg": "theme/palette_fg/island.bin", 
+    "palette_permutation_bg": "theme/palette_permutations/identity.bin", 
+    "palette_permutation_fg": "theme/palette_permutations/identity.bin", 
+    "titlecard_artcomp": "theme/titlecard/artcomp/island.bin", 
+    "titlecard_mapeni": "theme/titlecard/mapeni/island.bin", 
+    "titlecard_palette": "theme/titlecard/palette/island.bin"
+}

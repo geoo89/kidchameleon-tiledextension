@@ -1,0 +1,10 @@
+
+{
+	"header":		"level/header/46.bin",
+	"foreground":	"level/foreground/46.bin",
+	"background":	"level/background/46.bin",
+	"bgscroll":		"level/bgscroll/46.bin",
+	"enemy":		"level/enemy/46.bin",
+	"platform":		"level/platform/46.asm",
+	"block":		"level/block/46.bin"
+}

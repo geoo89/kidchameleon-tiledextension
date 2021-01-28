@@ -1,0 +1,10 @@
+
+{
+	"header":		"level/header/6C.bin",
+	"foreground":	"level/foreground/6C.bin",
+	"background":	"level/background/6C.bin",
+	"bgscroll":		"level/bgscroll/6C.bin",
+	"enemy":		"level/enemy/6C.bin",
+	"platform":		"level/platform/6C.asm",
+	"block":		"level/block/6C.bin"
+}

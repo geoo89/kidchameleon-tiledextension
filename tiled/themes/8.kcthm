@@ -1,0 +1,19 @@
+{
+    "artcomp_bg": "theme/artcomp_bg/cave.bin", 
+    "artcomp_fg": "theme/artcomp_fg/cave.bin", 
+    "artdec_bg": "theme/artdec_bg/cave.bin", 
+    "bg_chunks": "theme/bg_chunks/cave.bin", 
+    "bg_is_layered": false, 
+    "bgtileset": "tiled/background/cave.tsx", 
+    "collision": "theme/collision/cave.bin", 
+    "fgtileset": "tiled/foreground/cave.tsx", 
+    "mappings": "theme/mappings/cave.bin", 
+    "name": "cave", 
+    "palette_bg": "theme/palette_bg/cave.bin", 
+    "palette_fg": "theme/palette_fg/cave.bin", 
+    "palette_permutation_bg": "theme/palette_permutations/identity.bin", 
+    "palette_permutation_fg": "theme/palette_permutations/identity.bin", 
+    "titlecard_artcomp": "theme/titlecard/artcomp/cave.bin", 
+    "titlecard_mapeni": "theme/titlecard/mapeni/cave.bin", 
+    "titlecard_palette": "theme/titlecard/palette/cave.bin"
+}

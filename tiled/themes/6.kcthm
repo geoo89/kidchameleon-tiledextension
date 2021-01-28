@@ -1,0 +1,19 @@
+{
+    "artcomp_bg": "theme/artcomp_bg/swamp.bin", 
+    "artcomp_fg": "theme/artcomp_fg/swamp.bin", 
+    "artdec_bg": "theme/artdec_bg/swamp.bin", 
+    "bg_chunks": "theme/bg_chunks/swamp.bin", 
+    "bg_is_layered": false, 
+    "bgtileset": "tiled/background/swamp.tsx", 
+    "collision": "theme/collision/swamp.bin", 
+    "fgtileset": "tiled/foreground/swamp.tsx", 
+    "mappings": "theme/mappings/swamp.bin", 
+    "name": "swamp", 
+    "palette_bg": "theme/palette_bg/swamp.bin", 
+    "palette_fg": "theme/palette_fg/swamp.bin", 
+    "palette_permutation_bg": "theme/palette_permutations/identity.bin", 
+    "palette_permutation_fg": "theme/palette_permutations/identity.bin", 
+    "titlecard_artcomp": "theme/titlecard/artcomp/swamp.bin", 
+    "titlecard_mapeni": "theme/titlecard/mapeni/swamp.bin", 
+    "titlecard_palette": "theme/titlecard/palette/swamp.bin"
+}

@@ -1,0 +1,10 @@
+
+{
+	"header":		"level/header/4C.bin",
+	"foreground":	"level/foreground/4C.bin",
+	"background":	"level/background/4C.bin",
+	"bgscroll":		"level/bgscroll/4C.bin",
+	"enemy":		"level/enemy/4C.bin",
+	"platform":		"level/platform/4C.asm",
+	"block":		"level/block/4C.bin"
+}

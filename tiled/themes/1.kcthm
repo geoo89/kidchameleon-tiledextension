@@ -1,0 +1,19 @@
+{
+    "artcomp_bg": "theme/artcomp_bg/sky.bin", 
+    "artcomp_fg": "theme/artcomp_fg/sky.bin", 
+    "artdec_bg": "theme/artdec_bg/sky.bin", 
+    "bg_chunks": "theme/bg_chunks/sky.bin", 
+    "bg_is_layered": false, 
+    "bgtileset": "tiled/background/sky.tsx", 
+    "collision": "theme/collision/sky.bin", 
+    "fgtileset": "tiled/foreground/sky.tsx", 
+    "mappings": "theme/mappings/sky.bin", 
+    "name": "sky", 
+    "palette_bg": "theme/palette_bg/sky.bin", 
+    "palette_fg": "theme/palette_fg/sky.bin", 
+    "palette_permutation_bg": "theme/palette_permutations/identity.bin", 
+    "palette_permutation_fg": "theme/palette_permutations/identity.bin", 
+    "titlecard_artcomp": "theme/titlecard/artcomp/sky.bin", 
+    "titlecard_mapeni": "theme/titlecard/mapeni/sky.bin", 
+    "titlecard_palette": "theme/titlecard/palette/sky.bin"
+}

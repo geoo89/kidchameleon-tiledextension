@@ -1,0 +1,19 @@
+{
+    "artcomp_bg": "theme/artcomp_bg/desert.bin", 
+    "artcomp_fg": "theme/artcomp_fg/desert.bin", 
+    "artdec_bg": "theme/artdec_bg/desert.bin", 
+    "bg_chunks": "theme/bg_chunks/desert.bin", 
+    "bg_is_layered": true, 
+    "bgtileset": "tiled/background/desert.tsx", 
+    "collision": "theme/collision/desert.bin", 
+    "fgtileset": "tiled/foreground/desert.tsx", 
+    "mappings": "theme/mappings/desert.bin", 
+    "name": "desert", 
+    "palette_bg": "theme/palette_bg/desert.bin", 
+    "palette_fg": "theme/palette_fg/desert.bin", 
+    "palette_permutation_bg": "theme/palette_permutations/identity.bin", 
+    "palette_permutation_fg": "theme/palette_permutations/identity.bin", 
+    "titlecard_artcomp": "theme/titlecard/artcomp/desert.bin", 
+    "titlecard_mapeni": "theme/titlecard/mapeni/desert.bin", 
+    "titlecard_palette": "theme/titlecard/palette/desert.bin"
+}

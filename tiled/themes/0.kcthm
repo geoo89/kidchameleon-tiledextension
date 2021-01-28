@@ -1,0 +1,19 @@
+{
+    "artcomp_bg": "theme/artcomp_bg/hex.bin", 
+    "artcomp_fg": "theme/artcomp_fg/hex.bin", 
+    "artdec_bg": "theme/artdec_bg/hex.bin", 
+    "bg_chunks": "theme/bg_chunks/hex.bin", 
+    "bg_is_layered": false, 
+    "bgtileset": "tiled/background/hex.tsx", 
+    "collision": "theme/collision/hex.bin", 
+    "fgtileset": "tiled/foreground/hex.tsx", 
+    "mappings": "theme/mappings/hex.bin", 
+    "name": "hex", 
+    "palette_bg": "theme/palette_bg/hex.bin", 
+    "palette_fg": "theme/palette_fg/hex.bin", 
+    "palette_permutation_bg": "theme/palette_permutations/identity.bin", 
+    "palette_permutation_fg": "theme/palette_permutations/identity.bin", 
+    "titlecard_artcomp": "theme/titlecard/artcomp/hex.bin", 
+    "titlecard_mapeni": "theme/titlecard/mapeni/hex.bin", 
+    "titlecard_palette": "theme/titlecard/palette/hex.bin"
+}

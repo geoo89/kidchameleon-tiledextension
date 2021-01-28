@@ -1,0 +1,19 @@
+{
+    "artcomp_bg": "theme/artcomp_bg/forest.bin", 
+    "artcomp_fg": "theme/artcomp_fg/forest.bin", 
+    "artdec_bg": "theme/artdec_bg/forest.bin", 
+    "bg_chunks": "theme/bg_chunks/forest.bin", 
+    "bg_is_layered": true, 
+    "bgtileset": "tiled/background/forest.tsx", 
+    "collision": "theme/collision/forest.bin", 
+    "fgtileset": "tiled/foreground/forest.tsx", 
+    "mappings": "theme/mappings/forest.bin", 
+    "name": "forest", 
+    "palette_bg": "theme/palette_bg/forest.bin", 
+    "palette_fg": "theme/palette_fg/forest.bin", 
+    "palette_permutation_bg": "theme/palette_permutations/forest_bg.bin", 
+    "palette_permutation_fg": "theme/palette_permutations/forest_fg.bin", 
+    "titlecard_artcomp": "theme/titlecard/artcomp/forest.bin", 
+    "titlecard_mapeni": "theme/titlecard/mapeni/forest.bin", 
+    "titlecard_palette": "theme/titlecard/palette/forest.bin"
+}
