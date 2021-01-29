@@ -17,25 +17,31 @@ you already have the map files. Please also note that some map files
 provided in this repository might need to be modified depending
 on which version of the disassembly you are using, see next section.)
 
-Open _kidchameleon.tiled-project_ in a text editor, replace the
-six instances of `/path/to/disasm/` with the actual (absolute)
-path to your repository, and additionally you might have to adjust
-the filenames of the executables: If you're running on linux, drop
-the `.exe` from `compress.exe`/`decompress.exe`/`compress_blocks.exe`;
-on MacOS replace these with `compress_osx`/`decompress_osx`/`compress_blocks_osx`.
-(The source of these compression tools is available at
+This Tiled extension uses external compression tools which need to
+be set up. Launch Tiled, and open the project `kidchameleon.tiled-project`
+using _Project -> Open Project_ from the menu.
+Now from the menu choose _File -> Commands -> Edit Commands_. Navigate
+to the tab _Project commands_, and you will see a pre-populated list of three
+compression commands: `kc_compress`, `kc_compress_blocks`, `kc_decompress`.
+For each of these, select it and proceed with the following steps:
+- The field _Executable:_ contains an invalid path. To fix it, press the
+_Browse_ button and select the executable corresponding to the command
+(`compress`, `decompress` or `compress_blocks`) and your operating system
+(`compress.exe` etc for Windows, `compress` etc for Linux, `compress_osx`
+etc for MacOS) from the `tiled/compression` folder.
+- Furthermore press the _Browse_ button next to the _Working Directory:_
+field and select the folder `tiled/compression`.
+(Note: The source of these compression tools is available at
 https://github.com/sonicretro/kid-chameleon-disasm/tree/master/tools
 if you need to compile them from source for your platform of choice.)
 
-You can now launch Tiled, and open the project `kidchameleon.tiled-project`
-using _Project -> Open Project_ from the menu.
 Assuming you have set up the disassembly so that all the individual
 levels have been split from the ROM into separate files, you should
 now be able to open the `.kclv` and `.kclvb` files from the
 _tiled/maps_ folder.
 
 I strongly recommend enabling _View -> Snapping -> Snap to Grid_.
-In the _View -> Views and Toolbars_ menu I recommend to
+After opening a map, in the _View -> Views and Toolbars_ menu I recommend to
 enable (at least) _Project, Issues, Properties, Tilesets, Tile stamps_
 and _Tools_.
 
@@ -48,18 +54,30 @@ however the file extension is used to determine whether to open the
 foreground or background of the level. Each of these files is a text
 file in JSON format, pointing to the individual resources belonging
 to the map from the disassembly, and thus can easily be modified as
-needed. Note that the files shipping with this repository assume that
+needed.
+
+If `split.py` and/or `split_hack.py` produced maps in the _tiled/maps_
+folder back when setting up the disasm, use these. (However, if they
+are missing, and you have modified any levels, __do not rerun `split.py`
+or `split_hack.py`__ as that will overwrite your modifications.)
+
+That the files shipping with this repository assume that
 each map has its own platform and background layout file, as you get
 when running `split_hack.py` in addition to `split.py` from the disassembly
-repository. (If you only run `split.py`, some platform and background
-layouts will be shared between levels; in that case you should use the
-`.kclv`/`.kclvb` files produced by `split.py`.)
+repository as of 2021-01-29. (If you only run `split.py`, some platform
+and background layouts will be shared between levels; in that case you
+should use the `.kclv`/`.kclvb` files produced by `split.py`.)
+
+If you are using a disassembly from before 2021-01-29, some levels
+share background layouts (see `level/background_includes.asm`) which
+is not reflected in the `.kclvb` files shipping with this Tiled extension
+thus the `.kclvb` will need to be modified accordingly for those levels.
 Furthermore, if you are using a disassembly from before 2020-03-06,
 background layout file names distinguish between the chunked
 and layered background format (e.g. `31.bin` but `30_layered.bin` in
 _level/background_). In that case you will have to adjust the `.kclvb`
 files of those maps that use a layered background format to point to
-the correct background filename.
+the correct background filename as well.
 
 Note that the paths in the `.kclv`/`.kclvb` files are relative to the
 disassembly folder. In order for tiled to open such a file, it looks in
@@ -102,8 +120,11 @@ _Layers_ tab should help you avoid placing tiles on the wrong layer.
 
 To resize a map, use _Map -> Resize Map_. Note that the width should be
 a multiple of 20 and the height a multiple of 14. To change the theme
-of a map select _Map -> Map Properties_. Note that size and theme changes
-also implicity affect the corresponding background map.
+of a map select _Map -> Map Properties_ and modify the corresponding
+custom properties. The theme change only takes effect after closing
+and reopening the map. 
+Note that size and theme changes also implicity affect the corresponding
+background map.
 
 # Background editing
 

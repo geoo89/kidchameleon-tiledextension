@@ -2,34 +2,34 @@
     "automappingRulesFile": "automapping_rules.txt",
     "commands": [
         {
-            "arguments": "",
-            "command": "/path/to/disasm/tiled/compression/compress.exe tmpin.bin tmpout.bin",
+            "arguments": "tmpin.bin tmpout.bin",
+            "command": "C:/path/to/disasm/tiled/compression/compress.exe",
             "enabled": true,
             "name": "kc_compress",
             "saveBeforeExecute": false,
             "shortcut": null,
-            "showOutput": false,
-            "workingDirectory": "/path/to/disasm/tiled/compression"
+            "showOutput": true,
+            "workingDirectory": "C:/path/to/disasm/tiled/compression.exe"
         },
         {
-            "arguments": "",
-            "command": "/path/to/disasm/tiled/compression/decompress.exe tmpin.bin tmpout.bin",
+            "arguments": "tmpin.bin tmpout.bin",
+            "command": "C:/path/to/disasm/tiled/compression/decompress.exe",
             "enabled": true,
             "name": "kc_decompress",
             "saveBeforeExecute": false,
             "shortcut": null,
-            "showOutput": false,
-            "workingDirectory": "/path/to/disasm/tiled/compression"
+            "showOutput": true,
+            "workingDirectory": "C:/path/to/disasm/tiled/compression/"
         },
         {
-            "arguments": "",
-            "command": "/path/to/disasm/tiled/compression/compress_blocks.exe tmpin.bin tmpout.bin",
+            "arguments": "tmpin.bin tmpout.bin",
+            "command": "C:/path/to/disasm/tiled/compression/compress_blocks.exe",
             "enabled": true,
             "name": "kc_compress_blocks",
             "saveBeforeExecute": false,
             "shortcut": null,
-            "showOutput": false,
-            "workingDirectory": "/path/to/disasm/tiled/compression"
+            "showOutput": true,
+            "workingDirectory": "C:/path/to/disasm/tiled/compression"
         }
     ],
     "extensionsPath": "extensions",

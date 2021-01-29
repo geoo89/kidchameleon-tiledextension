@@ -174,7 +174,7 @@ var save_platforms = function(filename, lines, n_platforms) {
 		}
 	}
 	file.writeLine("\tdc.w\t\$FFFF");
-	file.close();
+	file.commit();
 }
 
 
