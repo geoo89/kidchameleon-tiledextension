@@ -89,9 +89,9 @@ var load_background_chunked = function(filename, tileset, header) {
 	var bglayer = new ObjectGroup("bg_chunked");
 
 	for (var i = 0; i < n_objects; ++i) {
-		var oid  = (bgdata[6*i    ]<<8) + bgdata[6*i + 1];
-		var xpos = (bgdata[6*i + 2]<<8) + bgdata[6*i + 3];
-		var ypos = (bgdata[6*i + 4]<<8) + bgdata[6*i + 5];
+		var oid  = (bgdata[6*i    ]<<8) | bgdata[6*i + 1];
+		var xpos = (bgdata[6*i + 2]<<8) | bgdata[6*i + 3] - ((bgdata[6*i + 2]<<9) & 0x10000);  // read as signed value
+		var ypos = (bgdata[6*i + 4]<<8) | bgdata[6*i + 5] - ((bgdata[6*i + 4]<<9) & 0x10000);  // read as signed value
 		var obj = new MapObject();
 		if (oid >= tileset.tileCount) {
 			tiled.warn("Background chunk with invalid chunk id " + oid + " ignored.");
@@ -128,11 +128,6 @@ var save_background_chunked = function(layer, filename, header) {
 		var oid = obj.tile.id;
 		var xpos = obj.x / 8;
 		var ypos = obj.y / 8;
-		if (xpos < 0 || ypos < 0) {
-			tiled.warn("Chunk with object ID " + obj.id + " has negative position. Chunk not saved.");
-			badobjects += 1;
-			continue;
-		}
 		bgdata[6*(i-badobjects)    ] = oid >> 8;
 		bgdata[6*(i-badobjects) + 1] = oid & 0xFF;
 		bgdata[6*(i-badobjects) + 2] = xpos >> 8;
