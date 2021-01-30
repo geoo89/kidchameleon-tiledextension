@@ -35,8 +35,8 @@
     "extensionsPath": "extensions",
     "folders": [
         "maps",
-        "themes",
-        "stamps"
+        "rules",
+        "themes"
     ],
     "objectTypesFile": ""
 }
