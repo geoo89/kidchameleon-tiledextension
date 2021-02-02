@@ -2,6 +2,8 @@ This is an extension for [Tiled](https://www.mapeditor.org/)
 to support level editing in Kid Chameleon using its
 [disassembly](https://github.com/sonicretro/kid-chameleon-disasm).
 
+Block graphics courtesy of ZTarget.
+
 # Setup
 
 Install the latest snapshot or version 1.4 or later of
