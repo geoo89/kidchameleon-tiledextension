@@ -1,1 +1,2 @@
 rules/hill.tmx
+rules/mountain.tmx
