@@ -69,12 +69,16 @@ var run_compression_command = function(indata, paths, command, timeout) {
 	// result to be ready.
 	tiled.executeCommand(command, true);
 	// poll for the result to be ready.
-	wait_until_file_written(timeout, 150, paths.compression_tmpout);
-	// load (de)compressed file.
-	tmpout = new BinaryFile(paths.compression_tmpout, BinaryFile.ReadOnly);
-	var outdata = new Uint8Array(tmpout.readAll());
-	tmpout.close();
-	return outdata;
+	var success = wait_until_file_written(timeout, 150, paths.compression_tmpout);
+	if (success) {
+		// load (de)compressed file.
+		tmpout = new BinaryFile(paths.compression_tmpout, BinaryFile.ReadOnly);
+		var outdata = new Uint8Array(tmpout.readAll());
+		tmpout.close();
+		return outdata;		
+	} else {
+		return null;
+	}
 }
 
 var wait_until_file_written = function(timeout, interval, filename) {
@@ -96,8 +100,9 @@ var wait_until_file_written = function(timeout, interval, filename) {
 		total_time += interval;
 	}
 	if (!success) {
-		tiled.error("Compression timed out. Invalid file saved.\n" +
-			"Increase the timeout value (currently " + timeout + "ms) passed to wait_until_file_written " +
+		tiled.error("Compression timed out.\nCheck the compression commands, and/or" +
+			"increase the timeout value (currently " + timeout + "ms) passed to wait_until_file_written " +
 			"in .../lib_kclv/compression.js in the tiled extensions folder and try again.");
 	}
+	return success;
 }

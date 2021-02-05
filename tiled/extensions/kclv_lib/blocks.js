@@ -227,6 +227,11 @@ var load_blocks = function(filename, header, tileset, objectlayer, platformtiles
 
 var save_blocks = function(kcmdata, filename, paths) {
 	var data = compress_blocks(kcmdata, paths);
+	if (data == null) {
+		tiled.error("Block compression failed. Blocks NOT saved.");
+		return false;
+	}
+
 	var file = new BinaryFile(filename, BinaryFile.ReadWrite);
 	file.resize(0);
 	file.write(data.buffer);

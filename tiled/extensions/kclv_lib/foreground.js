@@ -23,6 +23,11 @@ var save_foreground = function(layer, filename, header, paths) {
 	}
 
 	fgdata = compress(fgdata, paths);
+	if (fgdata == null) {
+		tiled.error("Foreground compression failed. Foreground NOT saved.");
+		return false;
+	}
+
 	var fgfile = new BinaryFile(filename, BinaryFile.ReadWrite);
 	fgfile.resize(0);
 	fgfile.write(fgdata.buffer);
@@ -33,6 +38,11 @@ var save_foreground = function(layer, filename, header, paths) {
 var save_blank_foreground = function(filename, header, paths) {
 	var fgdata = new Uint8Array(header.fgxsize_blocks * header.fgysize_blocks);
 	fgdata = compress(fgdata, paths);
+	if (fgdata == null) {
+		tiled.error("Foreground compression failed. New blank foreground NOT saved.");
+		return false;
+	}
+
 	var fgfile = new BinaryFile(filename, BinaryFile.ReadWrite);
 	fgfile.resize(0);
 	fgfile.write(fgdata.buffer);
@@ -47,13 +57,18 @@ var save_blank_foreground = function(filename, header, paths) {
 // fgtileset: TileSet of the foreground.
 // paths: object with paths to compression tmpin/tmpout files.
 var load_foreground = function(filename, header, fgtileset, paths) {
-	var fgfile = new BinaryFile(filename, BinaryFile.ReadOnly);
-	var fgdata = new Uint8Array(fgfile.readAll());
-	fgdata = decompress(fgdata, paths);
-
 	var fglayer = new TileLayer("foreground");
 	fglayer.width = header.fgxsize_blocks;
 	fglayer.height = header.fgysize_blocks;
+
+	var fgfile = new BinaryFile(filename, BinaryFile.ReadOnly);
+	var fgdata = new Uint8Array(fgfile.readAll());
+	fgfile.close();
+	fgdata = decompress(fgdata, paths);
+	if (fgdata == null) {
+		tiled.error("Foreground compression failed. Blank foreground loaded.");
+		return fglayer;
+	}
 
 	// Get an editable version of the tile layer.
 	var fgedit = fglayer.edit();
@@ -69,6 +84,5 @@ var load_foreground = function(filename, header, fgtileset, paths) {
 		}
 	}
 	fgedit.apply();
-	fgfile.close();
 	return fglayer;
 }
