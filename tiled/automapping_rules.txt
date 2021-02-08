@@ -1,2 +1,4 @@
 rules/hill.tmx
 rules/mountain.tmx
+rules/forest.tmx
+rules/forest2.tmx
