@@ -239,8 +239,8 @@ Before importing, you might want to change some configuration by editing
 * `compress_tool`: Path to the _compress_ tool (the tools are in this repository in `tiled/compression/`, choose one according to your operating system)
 * `extra_bg_color`: The 9th color the background chunks may use (three 3 bit Genesis color components, in order BGR). Ingame hardcoded to be black.
 
-**Note:** If you need to use a backslash `\\` anywhere in `config.json`,
-you will need to escape it by typing `\\\\`.
+**Note:** If you need to use a backslash `\` anywhere in `config.json`,
+you will need to escape it by typing `\\`.
 
 ## Running the import
 
