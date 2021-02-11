@@ -1,16 +1,22 @@
 This is an extension for [Tiled](https://www.mapeditor.org/)
 to support level editing in Kid Chameleon using its
 [disassembly](https://github.com/sonicretro/kid-chameleon-disasm).
+It comes with a python tool to create new themes for Kid Chameleon.
 
 Block graphics courtesy of ZTarget.
 
-# Setup
+# Tiled extension
+
+## Setup
 
 Install the latest snapshot or version 1.4 or later of
 [Tiled](https://www.mapeditor.org/).
 
-Assuming you have already set up the disassembly of Kid Chameleon,
-create a _tiled_ subfolder inside the disassembly folder, and copy
+Follow the instructions to set up the
+[disassembly](https://github.com/sonicretro/kid-chameleon-disasm),
+if you haven't already.
+
+Now create a _tiled_ subfolder inside the disassembly folder, and copy
 the contents of the _tiled_ folder from this repository into there.
 (If using a version of the disasm from 2020-05-21 or newer, after
 setup it will already contain a _tiled/maps_ folder. In that case,
@@ -47,7 +53,7 @@ After opening a map, in the _View -> Views and Toolbars_ menu I recommend to
 enable (at least) _Project, Issues, Properties, Tilesets, Tile stamps_
 and _Tools_.
 
-# Version differences for map files
+## Version differences for map files
 
 For each map, the _tiled/maps_ folder contains two files. One with `.kclv`
 extension for the foreground level layout, and one with `.kclvb` for
@@ -88,7 +94,7 @@ to determine where to find the disassembly. Thus you can reorganize your
 maps into subfolders, as long as you provide `resource_paths.json` with
 the appropriate path to the disassembly in each of these subfolders.
 
-# Foreground editing
+## Foreground editing
 
 Terrain, blocks, enemies and platforms are supported. All of these
 are available in the _Tilesets_ panel.
@@ -128,7 +134,7 @@ and reopening the map.
 Note that size and theme changes also implicity affect the corresponding
 background map.
 
-# Background editing
+## Background editing
 
 Each background has two layers: One for the actual layout, and one
 for its scrolling rows.
@@ -150,3 +156,127 @@ When modifying scrolling data, note that unlike in the layered format,
 due to the different grid size you have to click within the leftmost
 8 pixels of the background layout to modify it.
 
+# Theme importer
+
+The theme importer allows to convert images into a format used by
+Kid Chameleon.
+
+## Set up
+
+Follow the instructions to set up the
+[disassembly](https://github.com/sonicretro/kid-chameleon-disasm),
+if you haven't already.
+If you're using a version older than 2021-02-11, please manually
+add [these changes](https://github.com/sonicretro/kid-chameleon-disasm/commit/2f0cceca8ee3e3a88c66d983f366ed66b2d82d5c)
+to `kid.asm`.
+
+To set up the tool, copy the `theme_import` folder into your disasm folder.
+To run the importer, you'll need to have [python 3](https://www.python.org/)
+installed, and in addition (numpy)[https://numpy.org/] and the
+[PIL library](https://pillow.readthedocs.io/en/stable/) for python.
+
+## Preparing the images
+
+A theme in Kid Chameleon consists of foreground blocks (16x16 pixels)
+that the level layouts are made of, pieces of background (variable size)
+that the background layouts are composed of, and an image that appears
+on the title card before the start of a levels.
+
+Thus the input folder (see `theme_import/example`) must contain graphics
+for each of these components, as follows:
+
+* `bg_chunks`: Subfolder with images of background chunks.
+* `background_palette.bin`: Sega Genesis palette with 8 colors.
+* `foreground_palette.bin`: Sega Genesis palette with 16 colors.
+* `foreground.png`: Image with all foreground blocks.
+* `title_palette.bin`: Sega Genesis palette with 16 colors.
+* `title.png`: Image to appear on the theme's title card.
+
+The dimensions of each background chunk and `title.png` must be divisible
+by 8, the dimensions of `foreground.png` must be divisible by 16.
+Each image should only use colors from the corresponding palette; the
+palettes are in the [Genesis palette format](https://segaretro.org/Sega_Mega_Drive/Palettes_and_CRAM)
+and can be modified e.g. using [HivePal](https://segaretro.org/HivePal) or a hex editor.
+(If a color in the image is not present in the palette, the closest color
+from the palette will be used instead.)
+The only exception is for background chunks: In addition to the specified
+palette, black can be used (this is hard-coded in the game) for a total
+of 9 colors. The first color of the background palette will determine the
+ingame background color, and the first color of the foreground palette
+will indicate transparency for foreground blocks.
+
+Internally, graphics on the Genesis consist of 8x8 pixel tiles that are
+arranged on screen (e.g. as background chunks or foreground blocks).
+This yields more constraints to keep in mind:
+The foreground image must not consist of more than 356 unique 8x8 tiles,
+the title image must not have more than 267 unique 8x8 tiles, and the background
+chunks (taken together) must not have more than 80 unique 8x8 tiles.
+For foreground and title, a horizontally/vertically flipped version of another
+tile is not considered unique; for background, vertically flipped versions
+are considered unique but horizontally flipped versions are not.
+Furthermore, the game can only use 256 unique 16x16 foreground blocks.
+
+Finally, note that the foreground palette is shared with various block
+and item graphics in the game (see `templates/blocks.png`). After the
+transparent color, the next 5 colors should be a gradient from dark to bright
+used by most blocks and platforms, followed by another color that appears
+on the flag, inside explosions and on the teleporter and should ideally
+blend with the brighter shades of the previous gradient. The next 4 colors
+should be another gradient from dark to bright and determines the 4 shades
+used by the diamonds in the game. The next 4 colors are not shared, but
+the last color should bright (usually white) as it is used in the HUD and
+for the clock.
+
+## Configuring
+
+Before importing, you might want to change some configuration by editing
+`config.json`. It contains the following parameters:
+
+* `theme_id`: Number of the new theme. Should be 11 and increase from there with each new theme (original themes are 1-10). Maximum is 15.
+* `theme_name`: Name of theme (all lowercase letters)
+* `input_folder`: Folder containing the images and palettes for import.
+* `output_folder`: Folder for the output files resulting from the import.
+* `compress_tool`: Path to the _compress_ tool (the tools are in this repository in `tiled/compression/`, choose one according to your operating system)
+* `extra_bg_color`: The 9th color the background chunks may use (three 3 bit Genesis color components, in order BGR). Ingame hardcoded to be black.
+
+**Note:** If you need to use a backslash `\\` anywhere in `config.json`,
+you will need to escape it by typing `\\\\`.
+
+## Running the import
+
+Run `import.py`. The tool will produce a file `log.txt` where you can
+check whether everything worked. If yes, it will in particular contain
+a line "SUCCESS!" and give you _further instructions that you should follow_.
+(In particular, you will need to _manually compress_ the title card mappings
+using e.g. use [TDSC](https://segaretro.org/The_Sega_Data_Compressor).)
+If successful, all output files will be in the output folder specified in
+`config.json`, and a file `kid_asm_[theme_name].diff` will be created.
+Note that `log.txt` will also warn you if you exceeded the number of allowed
+tiles or blocks.
+
+Furthermore the tool creates a `debug` folder with debug information.
+You can check the images to make sure all pixels got assigned the correct
+colors from the palette. Of particular interest is `debug/blocks.png`,
+which shows how the block graphics will look like with your foreground palette.
+
+## Using the theme in Tiled and ingame
+
+These instructions are also mentioned in `log.txt` after a successful import:
+
+Copy all the contents of the output folder that you specified in `config.json`
+into the disassembly folder (the output uses the same folder structure and
+the content should merge into the respective folders). Now you're set to
+use the theme in Tiled: Change the foreground/background theme ID of a map
+to the new ID that you assigned to the theme in `config.json` to use the theme.
+
+To support the theme in the game, you will need to modify `kid.asm` in the
+disassembly folder. You will see all the required changes in the file
+`kid_asm_[theme_name].diff`. Each _section_ starts with a line beginning with
+`@@`, followed by line numbers, another `@@`, and a starting line (that
+usually contains a label). While the line numbers might differ in your
+disassembly, the starting line/label should allow you to find the relevant
+part of the code in `kid.asm`. The first and last three lines of a _section_
+of `kid_asm_[theme_name].diff` are the three lines directly preceding/succeeding
+the location in `kid.asm` where you should insert a change. In between them
+are lines starting with `+`: These are the lines you should insert in this
+location in `kid.asm` (remove the leading `+`).

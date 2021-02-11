@@ -1,0 +1,19 @@
+{
+    "artcomp_bg": "theme/artcomp_bg/themename.bin", 
+    "artcomp_fg": "theme/artcomp_fg/themename.bin", 
+    "artdec_bg": "theme/artdec_bg/themename.bin", 
+    "bg_chunks": "theme/bg_chunks/themename.bin", 
+    "bg_is_layered": false, 
+    "bgtileset": "tiled/background/themename.tsx", 
+    "collision": "theme/collision/themename.bin", 
+    "fgtileset": "tiled/foreground/themename.tsx", 
+    "mappings": "theme/mappings/themename.bin", 
+    "name": "themename", 
+    "palette_bg": "theme/palette_bg/themename.bin", 
+    "palette_fg": "theme/palette_fg/themename.bin", 
+    "palette_permutation_bg": "theme/palette_permutations/identity.bin", 
+    "palette_permutation_fg": "theme/palette_permutations/identity.bin", 
+    "titlecard_artcomp": "theme/titlecard/artcomp/themename.bin", 
+    "titlecard_mapeni": "theme/titlecard/mapeni/themename.bin", 
+    "titlecard_palette": "theme/titlecard/palette/themename.bin"
+}

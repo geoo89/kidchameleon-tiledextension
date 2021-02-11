@@ -1,0 +1,3 @@
+ <tile id="chunkid">
+  <image width="chunkwidth" height="chunkheight" source="filename"/>
+ </tile>

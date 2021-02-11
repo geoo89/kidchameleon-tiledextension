@@ -1,0 +1,220 @@
+@@ -8802,6 +8802,7 @@ unk_7ECC:
+ 	dc.b $74
+ 	dc.b $78
+ 	dc.b $68
++	dc.b $7E	; <-- change this: music speed for the example theme
+ MusicSpeed_Murderwall:
+ 	dc.b $76
+ 	align 2
+@@ -24381,6 +24382,7 @@ unk_1201E:
+ 	dc.b   bgm_Cave
+ 	dc.b   bgm_Forest
+ 	dc.b   bgm_City
++	dc.b   bgm_Sky	; <-- change this: pick a music track for the example theme.
+ 	align 2
+ ; ---------------------------------------------------------------------------
+ ANIART_SHORE_SIZE = $2E0
+@@ -27606,6 +27608,7 @@ unk_14576:
+ 	dc.b   1
+ 	dc.b $C5 ; Å
+ 	dc.b $9A ; š
++	dc.b   1 ; <-- change this: Pick an indoor foreground block ID from the example theme.
+ 	align 2
+ 
+ ; =============== S U B	R O U T	I N E =======================================
+@@ -28687,6 +28690,7 @@ Pal_TitleCard_mountain:	binclude    "theme/titlecard/palette/mountain.bin"
+ Pal_TitleCard_cave:	binclude    "theme/titlecard/palette/cave.bin"
+ Pal_TitleCard_forest:	binclude    "theme/titlecard/palette/forest.bin"
+ Pal_TitleCard_city:	binclude    "theme/titlecard/palette/city.bin"
++Pal_TitleCard_example:	binclude    "theme/titlecard/palette/example.bin"
+ ;14FAE
+ TitleCardPalettes_Index:
+ 	dc.l 0
+@@ -28700,6 +28704,7 @@ TitleCardPalettes_Index:
+ 	dc.l Pal_TitleCard_cave
+ 	dc.l Pal_TitleCard_forest
+ 	dc.l Pal_TitleCard_city
++	dc.l Pal_TitleCard_example
+ MapEni_TitleCard_sky:		binclude    "theme/titlecard/mapeni/sky.bin"
+ 	align	2
+ MapEni_TitleCard_ice:		binclude    "theme/titlecard/mapeni/ice.bin"
+@@ -28720,6 +28725,8 @@ MapEni_TitleCard_forest:	binclude    "theme/titlecard/mapeni/forest.bin"
+ 	align	2
+ MapEni_TitleCard_city:		binclude    "theme/titlecard/mapeni/city.bin"
+ 	align	2
++MapEni_TitleCard_example:	binclude    "theme/titlecard/mapeni/example.bin"
++	align	2
+ TitleCardMaps_Index:
+ 	dc.l 0
+ 	dc.l MapEni_TitleCard_sky
+@@ -28732,6 +28739,7 @@ TitleCardMaps_Index:
+ 	dc.l MapEni_TitleCard_cave
+ 	dc.l MapEni_TitleCard_forest
+ 	dc.l MapEni_TitleCard_city
++	dc.l MapEni_TitleCard_example
+ ArtComp_TitleCard_sky:		binclude    "theme/titlecard/artcomp/sky.bin"
+ ArtComp_TitleCard_ice:		binclude    "theme/titlecard/artcomp/ice.bin"
+ ArtComp_TitleCard_hill:		binclude    "theme/titlecard/artcomp/hill.bin"
+@@ -28742,6 +28750,7 @@ ArtComp_TitleCard_mountain:	binclude    "theme/titlecard/artcomp/mountain.bin"
+ ArtComp_TitleCard_cave:		binclude    "theme/titlecard/artcomp/cave.bin"
+ ArtComp_TitleCard_forest:	binclude    "theme/titlecard/artcomp/forest.bin"
+ ArtComp_TitleCard_city:		binclude    "theme/titlecard/artcomp/city.bin"
++ArtComp_TitleCard_example:	binclude    "theme/titlecard/artcomp/example.bin"
+ 	align 2
+ TitleCardArt_Index:
+ 	dc.l	0
+@@ -28755,6 +28764,7 @@ TitleCardArt_Index:
+ 	dc.l ArtComp_TitleCard_cave
+ 	dc.l ArtComp_TitleCard_forest
+ 	dc.l ArtComp_TitleCard_city
++	dc.l ArtComp_TitleCard_example
+ ; ---------------------------------------------------------------------------
+ 
+ Load_TitleCard:
+@@ -28909,6 +28919,7 @@ TitleCardSize_Index:
+ 	dc.b $12, $C
+ 	dc.b  $F,$17
+ 	dc.b $13,$11
++	dc.b  $A, $F	; <-- change this: dimension (in tiles) of example title image.
+ Pal_19C48:	
+ 	binclude	"scenes/palette/Title_card_letters.bin"
+ ArtComp_19C68_TtlCardLetters:
+@@ -45981,6 +45992,7 @@ LnkTo_Pal_7B756:	dc.l Pal_7B756
+ LnkTo_Pal_7B792:	dc.l Pal_7B792
+ LnkTo_Pal_7B7B0:	dc.l Pal_7B7B0
+ LnkTo_Pal_7B7CE:	dc.l Pal_7B7CE
++LnkTo_Pal_FGExample:	dc.l Pal_FGExample
+ LnkTo0_Pal_7B7EC:	dc.l Pal_7B7EC
+ LnkTo_Pal_7B7EC:	dc.l Pal_7B7EC
+ LnkTo_Pal_7B7FC:	dc.l Pal_7B7FC
+@@ -45992,6 +46004,7 @@ LnkTo_Pal_7B84C:	dc.l Pal_7B84C
+ LnkTo_Pal_7B87C:	dc.l Pal_7B87C
+ LnkTo_Pal_7B88C:	dc.l Pal_7B88C
+ LnkTo_Pal_7B89C:	dc.l Pal_7B89C
++LnkTo_Pal_BGExample:	dc.l Pal_BGExample
+ off_7B0AC:	dc.l unk_99FCA
+ 	dc.l unk_9A1CC
+ 	dc.l unk_9A3CE
+@@ -46025,6 +46038,7 @@ ThemeArtFront_Index:dc.l unk_80E84
+ 	dc.l unk_8E2D8
+ 	dc.l unk_902C2
+ 	dc.l unk_92226
++	dc.l ArtComp_ExampleFG
+ ThemeArtBack_Index:dc.l	unk_93C94
+ 	dc.l unk_93C94
+ 	dc.l unk_9422F
+@@ -46036,6 +46050,7 @@ ThemeArtBack_Index:dc.l	unk_93C94
+ 	dc.l unk_96045
+ 	dc.l unk_96514
+ 	dc.l unk_96B49
++	dc.l ArtComp_ExampleBG
+ ThemeArtBack_CaveAlt:	dc.l unk_970D2	; 2C
+ ThemeArtBack_MountainLightning:	dc.l unk_9729F	; 30
+ ThemeArtBack_HillAlt:	dc.l unk_97381	; 34
+@@ -46050,6 +46065,7 @@ ThemeMappings_Index:dc.l unk_7C4EC
+ 	dc.l unk_7F80C
+ 	dc.l unk_7FE94
+ 	dc.l unk_8068C
++	dc.l MapFG_Example
+ ThemePal1_Index:dc.w LnkTo_Pal_7B684-MainAddr_Index
+ 	dc.w LnkTo_Pal_7B6A2-MainAddr_Index
+ 	dc.w LnkTo_Pal_7B6C0-MainAddr_Index
+@@ -46061,6 +46077,7 @@ ThemePal1_Index:dc.w LnkTo_Pal_7B684-MainAddr_Index
+ 	dc.w LnkTo_Pal_7B792-MainAddr_Index
+ 	dc.w LnkTo_Pal_7B7B0-MainAddr_Index
+ 	dc.w LnkTo_Pal_7B7CE-MainAddr_Index
++	dc.w LnkTo_Pal_FGExample-MainAddr_Index
+ ThemePal2_Index:dc.w LnkTo0_Pal_7B7EC-MainAddr_Index
+ 	dc.w LnkTo_Pal_7B7EC-MainAddr_Index
+ 	dc.w LnkTo_Pal_7B7FC-MainAddr_Index
+@@ -46072,6 +46089,7 @@ ThemePal2_Index:dc.w LnkTo0_Pal_7B7EC-MainAddr_Index
+ 	dc.w LnkTo_Pal_7B87C-MainAddr_Index
+ 	dc.w LnkTo_Pal_7B88C-MainAddr_Index
+ 	dc.w LnkTo_Pal_7B89C-MainAddr_Index
++	dc.w LnkTo_Pal_BGExample-MainAddr_Index
+ ThemeCollision_Index:dc.l unk_7BB64
+ 	dc.l unk_7BB6A
+ 	dc.l unk_7BC62
+@@ -46083,6 +46101,7 @@ ThemeCollision_Index:dc.l unk_7BB64
+ 	dc.l unk_7C1F5
+ 	dc.l unk_7C2F1
+ 	dc.l unk_7C3F1
++	dc.l Collision_Example
+ BackgroundScroll_Index:
+ 	include "level/bgscroll_index.asm"
+ off_7B3E4:	dc.l off_7B410
+@@ -46096,6 +46115,7 @@ off_7B3E4:	dc.l off_7B410
+ 	dc.l off_7B5EC
+ 	dc.l off_7B640
+ 	dc.l off_7B64C
++	dc.l BGChunks_Example_Index
+ off_7B410:	dc.l unk_9B83C
+ 	dc.l unk_9B842
+ 	dc.l unk_9B852
+@@ -46253,6 +46273,16 @@ off_7B64C:	dc.l unk_9F124
+ 	dc.l unk_9F912
+ 	dc.l unk_9F998
+ 	dc.l unk_9F9EC
++BGChunks_Example_Index:
++	dc.l BGChunks_Example_Chunk0
+ Pal_7B684:  binclude    "theme/palette_fg/theme0.bin"
+ Pal_7B6A2:  binclude    "theme/palette_fg/sky.bin"
+ Pal_7B6C0:  binclude    "theme/palette_fg/ice.bin"
+@@ -46265,6 +46295,7 @@ Pal_7B774:  binclude    "theme/palette_fg/mountain_storm.bin"
+ Pal_7B792:  binclude    "theme/palette_fg/cave.bin"
+ Pal_7B7B0:  binclude    "theme/palette_fg/forest.bin"
+ Pal_7B7CE:  binclude    "theme/palette_fg/city.bin"
++Pal_FGExample:  binclude    "theme/palette_fg/example.bin"
+ Pal_7B7EC:  binclude    "theme/palette_bg/sky.bin"
+ Pal_7B7FC:  binclude    "theme/palette_bg/ice.bin"
+ Pal_7B80C:  binclude    "theme/palette_bg/hill.bin"
+@@ -46277,6 +46308,7 @@ Pal_7B86C:  binclude    "theme/palette_bg/mountain_lightning.bin"
+ Pal_7B87C:  binclude    "theme/palette_bg/cave.bin"
+ Pal_7B88C:  binclude    "theme/palette_bg/forest.bin"
+ Pal_7B89C:  binclude    "theme/palette_bg/city.bin"
++Pal_BGExample:  binclude    "theme/palette_bg/example.bin"
+ Pal_7B8AC:  binclude	"ingame/palette/lava.bin"
+ Pal_7B8BC:  binclude	"ingame/palette/hail_mountain.bin"
+ Pal_7B8CC:  binclude	"ingame/palette/hail_ice.bin"
+@@ -46294,6 +46326,7 @@ unk_7C128:  binclude    "theme/collision/mountain.bin"
+ unk_7C1F5:  binclude    "theme/collision/cave.bin"
+ unk_7C2F1:  binclude    "theme/collision/forest.bin"
+ unk_7C3F1:  binclude    "theme/collision/city.bin"
++Collision_Example:  binclude    "theme/collision/example.bin"
+ 	align	2
+ unk_7C4EC:  binclude    "theme/mappings/theme0.bin"
+ unk_7C51C:  binclude    "theme/mappings/sky.bin"
+@@ -46306,6 +46339,7 @@ unk_7F1A4:  binclude    "theme/mappings/mountain.bin"
+ unk_7F80C:  binclude    "theme/mappings/cave.bin"
+ unk_7FE94:  binclude    "theme/mappings/forest.bin"
+ unk_8068C:  binclude    "theme/mappings/city.bin"
++MapFG_Example:	  binclude    "theme/mappings/example.bin"
+ 
+ unk_80E84:  binclude    "theme/artcomp_fg/theme0.bin"
+ unk_80E86:  binclude    "theme/artcomp_fg/sky.bin"
+@@ -46318,6 +46352,7 @@ unk_8C54C:  binclude    "theme/artcomp_fg/mountain.bin"
+ unk_8E2D8:  binclude    "theme/artcomp_fg/cave.bin"
+ unk_902C2:  binclude    "theme/artcomp_fg/forest.bin"
+ unk_92226:  binclude    "theme/artcomp_fg/city.bin"
++ArtComp_ExampleFG:  binclude    "theme/artcomp_fg/example.bin"
+ 	align	2
+ unk_93C94:  binclude    "theme/artcomp_bg/sky.bin"
+ unk_9422F:  binclude    "theme/artcomp_bg/ice.bin"
+@@ -46329,6 +46364,7 @@ unk_95B76:  binclude    "theme/artcomp_bg/mountain.bin"
+ unk_96045:  binclude    "theme/artcomp_bg/cave.bin"
+ unk_96514:  binclude    "theme/artcomp_bg/forest.bin"
+ unk_96B49:  binclude    "theme/artcomp_bg/city.bin"
++ArtComp_ExampleBG:  binclude    "theme/artcomp_bg/example.bin"
+ unk_970D2:  binclude    "theme/artcomp_bg/cave_alt.bin"
+ unk_9729F:  binclude    "theme/artcomp_bg/mountain_lightning.bin"
+ unk_97381:  binclude    "theme/artcomp_bg/hill_alt.bin"
+@@ -47235,6 +47271,22 @@ unk_9F998:  binclude	"theme/bg_chunks/city_0C.bin"
+ 	align	2
+ unk_9F9EC:  binclude	"theme/bg_chunks/city_0D.bin"
+ 	align	2
++BGChunks_Example_Chunk0:  binclude	"theme/bg_chunks/example_00.bin"
++	align	2
+ 
+ 	include	"level/bgscroll_includes.asm"
+ 
+
