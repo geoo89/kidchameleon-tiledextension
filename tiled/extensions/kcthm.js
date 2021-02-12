@@ -46,9 +46,11 @@ var kcthmMapFormat = {
 		var collisionedit = collisionlayer.edit();
 		for (var x = 0; x < xsize; ++x) {
 			for (var y = 0; y < ysize; ++y) {
-				var id = collisiondata[x + xsize*y];
-				// TODO: error handling
-				collisionedit.setTile(x, y, collisiontileset.tile(id));
+				if (x + xsize*y < collisiondata.length) {
+					// TODO: full error handling
+					var id = collisiondata[x + xsize*y];
+					collisionedit.setTile(x, y, collisiontileset.tile(id));					
+				}
 			}
 		}
 		collisionedit.apply();
