@@ -268,6 +268,9 @@ into the disassembly folder (the output uses the same folder structure and
 the content should merge into the respective folders). Now you're set to
 use the theme in Tiled: Change the foreground/background theme ID of a map
 to the new ID that you assigned to the theme in `config.json` to use the theme.
+You'll want to edit the collision of each foreground block of the new theme.
+For that purpose, open `tiled/themes/11.kcthm` (or whichever number you
+assigned to the theme) and edit and save the theme's collision.
 
 To support the theme in the game, you will need to modify `kid.asm` in the
 disassembly folder. You will see all the required changes in the file
