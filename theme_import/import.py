@@ -159,7 +159,7 @@ if __name__ == "__main__":
         tiledict = dict()
         bgimg_path = make_in_path(config, "bg_chunks/*.png")
         bgart_path = make_out_path(config, "theme/bg_chunks")
-        for f_img in glob.glob(bgimg_path):
+        for f_img in sorted(glob.glob(bgimg_path)):
             # process chunk
             bg_debugimg = os.path.join("debug", "bg_chunks", os.path.basename(str(f_img)))
             pixels = tile.image_to_indexed_pixels(bgpal, f_img, bg_debugimg)

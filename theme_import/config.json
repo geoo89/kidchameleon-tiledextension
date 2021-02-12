@@ -3,6 +3,6 @@
     "theme_name": "example",
     "input_folder": "example",
     "output_folder": "example_output",
-    "compress_tool": "../tiled/compression/compress",
+    "compress_tool": "../tiled/compression/compress.exe",
     "extra_bg_color": [0, 0, 0]
 }
