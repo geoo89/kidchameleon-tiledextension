@@ -210,7 +210,7 @@ arranged on screen (e.g. as background chunks or foreground blocks).
 This yields more constraints to keep in mind:
 The foreground image must not consist of more than 356 unique 8x8 tiles,
 the title image must not have more than 267 unique 8x8 tiles, and the background
-chunks (taken together) must not have more than 80 unique 8x8 tiles.
+chunks (taken together) must not have more than 128 unique 8x8 tiles.
 For foreground and title, a horizontally/vertically flipped version of another
 tile is not considered unique; for background, vertically flipped versions
 are considered unique but horizontally flipped versions are not.

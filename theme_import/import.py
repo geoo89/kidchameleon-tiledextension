@@ -188,8 +188,8 @@ if __name__ == "__main__":
             fout.close()
         # Save tiles
         print("Number of unique background tiles: " + str(len(tiledict)))
-        if (len(tiledict) > 80):
-            print("Warning: This is more than the allowed maximum of 80.")
+        if (len(tiledict) > 128):
+            print("Warning: This is more than the allowed maximum of 128.")
         bgart_path = make_out_path(config, "theme/artcomp_bg/{}.bin")
         bgart_tmp_path = os.path.join("debug", "tmp.bin")
         tile.save_unique_tiles(tiledict, bgart_tmp_path)
