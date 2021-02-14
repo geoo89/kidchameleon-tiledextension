@@ -44,6 +44,7 @@ def image_to_indexed_pixels(pal, filename, debugimg_out):
     palimage.putpalette(paldata + paldata[0:3] * (256 - len(pal)))
 
     mapimage = Image.open(filename)
+    mapimage = mapimage.convert(mode="RGB")
     mapimage.load()
     mapimage_indexed = mapimage.im.convert("P", 0, palimage.im)  # 0 indicates no dithering
     mapimage._new(mapimage_indexed).save(debugimg_out)
@@ -110,9 +111,6 @@ def pixels_to_tiles(pixels, tiledict=None, is_bg_chunk=False):
 
     return tilemap, tiledict
 
-
-
-
 def save_unique_tiles(tiledict, filename):
     f = open(filename, 'wb')
     for tile, idx in sorted(tiledict.items(), key=lambda x: x[1]):
@@ -153,37 +151,3 @@ def save_plane_tilemap(tilemap, filename):
         for x in range(xsize):
             f.write(struct.pack('>H', tilemap[y,x]))  # 16 bit big endian
     f.close()
-
-
-
-# Use adaptive palette if no palette is provided?
-# im = Image.open("image1.png")
-# imP = im.convert('RGB').convert('P', palette=Image.ADAPTIVE, colors=3)
-# imP.putpalette([
-#     0, 0, 0, # index 0 is black background
-#     0, 0, 255, # index 1 is blue
-#     255, 0, 0, # index 2 is red ])
-
-# im2 = Image.open("image2.png")
-# imP2L = im2.convert('L') # need a greyscale image to create a mask
-# mask = Image.eval(imP2L, lambda a: 255 if a == 0 else 0)
-# imP.paste(2, mask) # Paste the color of index 2 using image2 as a mask
-# imP.save('out3.png', transparency = 0, optimize = 1) # Save and set index 0 as transparent
-
-
-    # mapimage._new(mapimage_indexed).show()
-
-    # def get_palette_index(color):
-    #     return np.argmin(np.sum(np.abs(pal - color), axis = 1))
-
-    # def convert_to_indexed(img):
-    #     get_palette_index
-
-    # img = mpimg.imread('test.png')
-    # imgplot = plt.imshow(img)
-
-    # i = get_palette_index(img[0,0])
-    # print(i)
-
-
-    # # print(img)
