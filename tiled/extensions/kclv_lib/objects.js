@@ -277,8 +277,8 @@ var get_auto_enemy_headers = function(enemy_ids, header) {
 			slots[0] = 0x12;
 			slots[1] = -2;
 			slots[2] = -2;
-			enemy_ids.delete(0x12);				
 		}
+		enemy_ids.delete(0x12);
 	}
 	for (boss_id of [0x20, 0x22, 0x23, 0x24]) {  // Bosses take up 3 slots
 		if (enemy_ids.has(boss_id)) {
@@ -288,21 +288,28 @@ var get_auto_enemy_headers = function(enemy_ids, header) {
 				slots[0] = 0x21;  // eyes
 				slots[1] = boss_id;
 				slots[2] = -2;
-				enemy_ids.delete(boss_id);
 			}
+			enemy_ids.delete(boss_id);
 		}
 	}
 	if (enemy_ids.has(0x0C) || enemy_ids.has(0x0D)) {  // Dragons take up 1-2 slots
 		if (slots[0] != -1) {
-			tiled.warn("Cannot allocate enemy header slot for enemy type \"dragon\" (ids 12/13)");
+			if (slots[1] != -1) {
+				tiled.warn("Cannot allocate enemy header slot for enemy type \"dragon\" (ids 12/13)");
+			} else {
+				slots[1] = 0x0C;  // walking dragon
+				if (enemy_ids.has(0x0C)) {
+					slots[2] = -2;  // reserve next slot if we have flying dragon
+				}				
+			}
 		} else {
 			slots[0] = 0x0C;  // walking dragon
 			if (enemy_ids.has(0x0C)) {
-				slots[1] = -2;  // reserve second slot if we have flying dragon
+				slots[1] = -2;  // reserve next slot if we have flying dragon
 			}
-			enemy_ids.delete(0x0C);
-			enemy_ids.delete(0x0D);
 		}
+		enemy_ids.delete(0x0C);
+		enemy_ids.delete(0x0D);
 	}
 	if (enemy_ids.has(0x0F)) {  // UFO takes up slots 2 and 3
 		if (slots[1] != -1) {
@@ -310,8 +317,8 @@ var get_auto_enemy_headers = function(enemy_ids, header) {
 		} else {
 			slots[1] = 0x0F;
 			slots[2] = -2;
-			enemy_ids.delete(0x0F);
 		}
+		enemy_ids.delete(0x0F);
 	}
 	if (enemy_ids.has(0x03)) {  // Robot takes up one slot, but uses palette slots 2 and 3 (shared with UFO)
 		if (slots[1] == 0x0F && slots[0] == -1) {  // UFO present
@@ -319,7 +326,6 @@ var get_auto_enemy_headers = function(enemy_ids, header) {
 				tiled.warn("Cannot allocate enemy header slot for enemy type \"Robot\" (id 3).");
 			} else {
 				slots[0] = 0x03;
-				enemy_ids.delete(0x03);
 			}
 		} else {  // UFO not present
 			if (slots[2] != -1) {  // we can keep slot 1 available
@@ -328,9 +334,9 @@ var get_auto_enemy_headers = function(enemy_ids, header) {
 				slots[2] = 0x03;
 				slots[1] = -2;  // art slot is free, but palette slot is used.
 				                // Thus no conflict in having Robot and flying dragon.
-				enemy_ids.delete(0x03);
 			}			
 		}
+		enemy_ids.delete(0x03);
 	}
 	if (enemy_ids.has(0x0B)) {  // the two types of rock tank share one slot
 		enemy_ids.delete(0x0B);
