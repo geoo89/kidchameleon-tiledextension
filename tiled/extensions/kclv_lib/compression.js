@@ -67,7 +67,7 @@ var run_compression_command = function(indata, paths, command, timeout) {
 	tmpout.commit();
 	// do the compression. This is asynchronous, so we have to poll for the
 	// result to be ready.
-	tiled.executeCommand(command, true);
+	tiled.executeCommand(command, false);
 	// poll for the result to be ready.
 	var success = wait_until_file_written(timeout, 150, paths.compression_tmpout);
 	if (success) {
