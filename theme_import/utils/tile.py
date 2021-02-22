@@ -29,6 +29,10 @@ def np8bit8x8_to_tile(arr):
     tile = (tile[::2] << 4) | tile[1::2]  # convert to 4bit
     return tile.tobytes()
 
+def blank_tile():
+    nptile = np.zeros((8, 8), dtype=np.int8)
+    return np8bit8x8_to_tile(nptile)
+
 # Take an indexed image, change the palette, and save it.
 def save_image_with_palette(filename, pal, debugimg_out):
     paldata = [component for color in pal for component in color]

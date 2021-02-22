@@ -223,7 +223,9 @@ if __name__ == "__main__":
         pixels = tile.image_to_indexed_pixels(titlepal, titleimg_path, title_debugimg)
         np.savetxt(os.path.join("debug", "title_pixels.txt"), pixels, fmt='%X')
 
-        tilemap, tiledict = tile.pixels_to_tiles(pixels)
+        tiledict = dict()
+        tiledict[tile.blank_tile()] = 0
+        tilemap, tiledict = tile.pixels_to_tiles(pixels, tiledict=tiledict)
         np.savetxt(os.path.join("debug", "title_mappings.txt"), tilemap, fmt='%4X')
         titlepath_out = make_out_path(config, "theme/titlecard/mapeni/{}.bin")
         tile.save_plane_tilemap(tilemap, titlepath_out)
