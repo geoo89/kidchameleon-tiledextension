@@ -5,6 +5,7 @@
    <property name="destmapid" value="0"/>
    <property name="destx" value="0"/>
    <property name="desty" value="0"/>
+   <property name="hidden" type="bool" value="false"/>
    <property name="objtype" value="teleport"/>
   </properties>
   <image width="32" height="16" source="platforms/teleport.png"/>

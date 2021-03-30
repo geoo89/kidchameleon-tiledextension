@@ -89,6 +89,7 @@ var blocks_to_layer = function(data, layer, tileset, objectlayer, platformtilese
 				teleobj.setProperty("destmapid", destmapid);
 				teleobj.setProperty("destx", destx);
 				teleobj.setProperty("desty", desty);
+				teleobj.setProperty("hidden", !!hidden_flag);
 				objectlayer.addObject(teleobj);
 			} 
 
@@ -178,7 +179,7 @@ var place_block = function(obj, kcmdata, header) {
 				tiled.warn("Teleporter object " + obj.id + " is missing properties. Ignoring.");
 			} else {
 				var kcmpos = teley * header.fgxsize_blocks * 5 + telex*5 + 4;
-				kcmdata[kcmpos] = 0x84;
+				kcmdata[kcmpos] = get_object_property(obj, "hidden") ? 0xA4 : 0x84;
 				kcmdata[kcmpos+1] = destmapid;
 				kcmdata[kcmpos+2] = desty; // position in blocks
 				kcmdata[kcmpos+4] = destx >> 8; // position in blocks
