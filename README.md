@@ -25,9 +25,14 @@ you already have the map files. Please also note that some map files
 provided in this repository might need to be modified depending
 on which version of the disassembly you are using, see next section.)
 
-This Tiled extension uses external compression tools which need to
-be set up. Launch Tiled, and open the project `kidchameleon.tiled-project`
+Launch Tiled, and open the project `kidchameleon.tiled-project`
 using _Project -> Open Project_ from the menu.
+
+If you're using Tiled >= 1.7, you will see a pop-up indicating that
+this project uses scripted extensions. Click "Enable extensions".
+
+If you're using Tiled >= 1.5, no further setup is needed. Otherwise,
+some external compression tools need to be set up, as follows:
 Now from the menu choose _File -> Commands -> Edit Commands_. Navigate
 to the tab _Project commands_, and you will see a pre-populated list of three
 compression commands: `kc_compress`, `kc_compress_blocks`, `kc_decompress`.
