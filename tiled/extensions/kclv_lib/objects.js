@@ -143,14 +143,16 @@ var save_objects = function(layer, paths, header, kcmdata) {
 	if (!kidflag_found.kid) {
 		tiled.warn("No kid found. Using position from header file.")
 	}
-	var blockRAMsize = header.blockbytype["ghost"]*16 + header.blockbytype["teleport"]*10 + header.blockbytype["prize"]*8;
+	var blockRAMsize = header.blockbytype["ghost"]*16 + header.blockbytype["teleport"]*10 + header.blockbytype["prize"]*8 + header.blockbytype["hidden"]*8;
 	if (blockRAMsize > 2200) {
-		tiled.warn("Possibly too many ghost/teleport/prize blocks.\n"
-			+ "(number of ghost block groups) * 16 + (number of teleports) * 10 + (number of prize blocks) * 8\n"
+		tiled.warn("Possibly too many ghost/teleport/prize/hidden blocks.\n"
+			+ "(number of ghost block groups) * 16 + (number of teleports) * 10 + (number of prize blocks) * 8 + (number of hidden blocks) * 8\n"
 			+ "must be less than 2200, but is " + blockRAMsize + " assuming ungrouped ghost blocks.\nNote: "
 			+ header.blockbytype["ghost"] + " ghost blocks (ungrouped), "
 			+ header.blockbytype["teleport"] + " teleports, "
-			+ header.blockbytype["prize"] + " prize blocks.")
+			+ header.blockbytype["prize"] + " prize blocks, "
+			+ header.blockbytype["hidden"] + " hidden blocks.\n"
+			+ "Hidden teleporters count for 2 hidden blocks.")
 	}
 
 

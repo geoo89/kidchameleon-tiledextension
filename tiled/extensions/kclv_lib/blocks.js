@@ -115,7 +115,7 @@ var layer_to_kcm_blocks = function(layer, header) {
 	data[pos++] = (header.fgxsize_blocks & 0xFF);
 	data[pos++] = (header.fgysize_blocks & 0xFF00) >> 8;
 	data[pos++] = (header.fgysize_blocks & 0xFF);
-	var blockbytype = {"ghost" : 0, "teleport" : 0, "prize" : 0};
+	var blockbytype = {"ghost" : 0, "teleport" : 0, "prize" : 0, "hidden" : 0};
 
 	for (var y = 0; y < layer.height; ++y) {
 		for (var x = 0; x < layer.width; ++x) {
@@ -129,6 +129,7 @@ var layer_to_kcm_blocks = function(layer, header) {
 					if (id >= 0x50) {
 						id -= 0x50;
 						hidden = 0x20;
+						blockbytype["hidden"] += 1;
 					}
 					if (id >= 0x40) {
 						// drill block
@@ -185,6 +186,9 @@ var place_block = function(obj, kcmdata, header) {
 				kcmdata[kcmpos+4] = destx >> 8; // position in blocks
 				kcmdata[kcmpos+3] = destx & 0xFF; // kcm endianness is different.
 				header.blockbytype["teleport"] += 1;
+				if (get_object_property(obj, "hidden")) {
+					header.blockbytype["hidden"] += 2;
+				}
 			}
 		}
 	} else if (get_object_property(obj, "objtype") == "ghostblock") {
