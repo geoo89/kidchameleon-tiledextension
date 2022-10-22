@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="2021.01.13" orientation="orthogonal" renderorder="right-down" width="25" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="1">
- <tileset firstgid="1" source="../foreground/hill.tsx"/>
+<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="25" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="1">
+ <tileset firstgid="1" name="foreground_hill" tilewidth="16" tileheight="16" tilecount="260" columns="20">
+  <image source="../foreground/hill.png" width="320" height="208"/>
+ </tileset>
  <layer id="1" name="regions" width="25" height="30">
   <data encoding="csv">
 33,0,33,0,0,33,0,0,0,33,0,0,0,0,33,0,33,0,0,0,33,0,33,0,0,

@@ -139,10 +139,6 @@ and reopening the map.
 Note that size and theme changes also implicity affect the corresponding
 background map.
 
-Note: As of Tiled 1.8, the provided automapping rules don't work.
-They work in Tiled 1.4.3. I'm not aware what changes in Tiled caused
-them to break and in which version of Tiled they were introduced.
-
 ## Background editing
 
 Each background has two layers: One for the actual layout, and one
