@@ -17,7 +17,7 @@ var kclvMapFormat = {
 		tilemap.setTileSize(16, 16);
 		tilemap.setProperty("fgtheme_id", header.fgtheme_id);
 		tilemap.setProperty("bgtheme_id", header.bgtheme_id);
-		tilemap.setProperty("unknown_flag_FFFAD2", header.unknown_flag_FFFAD2);
+		tilemap.setProperty("extra_blank_top_rows", header.extra_blank_top_rows);
 		tilemap.setProperty("mode", "foreground");
 
 		// FOREGROUND TILES
@@ -86,7 +86,7 @@ var kclvMapFormat = {
 			return null;
 		}
 		var header = get_header(paths.header, paths.repo_path);
-		header.unknown_flag_FFFAD2 = map.property("unknown_flag_FFFAD2");
+		header.extra_blank_top_rows = map.property("extra_blank_top_rows");
 		// Update dimensions, in case user resized map.
 		header.fgxsize_screens = ((map.width + 19) / 20) << 0;  // round up to integer
 		header.fgysize_screens = ((map.height + 13) / 14) << 0;  // round up to integer

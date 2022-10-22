@@ -33,15 +33,18 @@ var get_header = function(filename, repo_path) {
 		flagy: (data[10]<<8) | data[11] - ((data[10]<<9)&0x10000),  // read as signed value
 		murderwall_flags: (data[2] & 0xC0) >> 6,
 		weather_flags: weather_flags,
-		unknown_flag_FFFAD2: (data[1] & 0xC0) >> 6
+		extra_blank_top_rows: (data[1] & 0xC0) >> 5
 	}
 }
 
 var write_header = function(filename, header) {
 	var headerfile = new BinaryFile(filename, BinaryFile.ReadWrite);
 	var data = new Uint8Array(headerfile.readAll());
+	if (![0,2,4,6].includes(header.extra_blank_top_rows)) {
+		tiled.warn("extra_blank_top_rows must be 0, 2, 4 or 6. Setting to " + (header.extra_blank_top_rows & 0x06))
+	}
 	data[0] = header.fgxsize_screens;
-	data[1] = header.fgysize_screens | (header.unknown_flag_FFFAD2 << 6);
+	data[1] = header.fgysize_screens | ((header.extra_blank_top_rows & 0x06) << 5);
 	data[2] = (header.fgtheme_id & 0x3F) | (header.murderwall_flags << 6);
 	data[3] = (header.bgtheme_id & 0x0F) | (header.weather_flags << 4);
 	data[4] = header.kidx >> 8;
