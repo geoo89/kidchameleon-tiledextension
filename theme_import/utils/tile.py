@@ -42,6 +42,7 @@ def save_image_with_palette(filename, pal, debugimg_out):
 
 # Given a palette and image filename, get numpy pixel array indexed by palette entry.
 def image_to_indexed_pixels(pal, filename, debugimg_out):
+    print(pal)
     paldata = [component for color in pal for component in color]
     palimage = Image.new('P', (16, 16))
     # pad palette to 256 colors by filling in first color
@@ -50,8 +51,8 @@ def image_to_indexed_pixels(pal, filename, debugimg_out):
     mapimage = Image.open(filename)
     mapimage = mapimage.convert(mode="RGB")
     mapimage.load()
-    mapimage_indexed = mapimage.im.convert("P", 0, palimage.im)  # 0 indicates no dithering
-    mapimage._new(mapimage_indexed).save(debugimg_out)
+    mapimage_indexed = mapimage.quantize(palette=palimage, dither=0)
+    mapimage_indexed.save(debugimg_out)
     pixels = np.array(mapimage_indexed, dtype=np.int8).reshape(mapimage.size[::-1])
     return pixels
 
@@ -86,10 +87,10 @@ def pixels_to_tiles(pixels, tiledict=None, is_bg_chunk=False):
 
     if is_bg_chunk:
         flipbit_shift = 7
-        tilemap = np.empty((ysize//8, xsize//8), dtype=np.int8)
+        tilemap = np.empty((ysize//8, xsize//8), dtype=np.uint8)
     else:
         flipbit_shift = 11
-        tilemap = np.empty((ysize//8, xsize//8), dtype=np.int16)        
+        tilemap = np.empty((ysize//8, xsize//8), dtype=np.uint16)        
 
     for y in range(0, ysize, 8):
         for x in range(0, xsize, 8):

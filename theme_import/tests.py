@@ -24,7 +24,7 @@ class TestImport(unittest.TestCase):
             [0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0, ],
             [0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0, ],
             [0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0, ],
-            ], dtype=np.int8)
+            ], dtype=np.uint8)
 
     def test_np8bit8x8_to_tile(self):
         nptile = np.array([
@@ -36,7 +36,7 @@ class TestImport(unittest.TestCase):
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
-            ], dtype=np.int8)
+            ], dtype=np.uint8)
         btile_expected = b'\x01\x23\x45\x67\x01\x23\x45\x67\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0'
         btile = tile.np8bit8x8_to_tile(nptile)
         self.assertEqual(btile, btile_expected)
@@ -56,7 +56,7 @@ class TestImport(unittest.TestCase):
         tilemap_expected = np.array([
             [ 0, 1, 0x81],
             [ 0, 2, 0x82]
-            ], dtype=np.int8)
+            ], dtype=np.uint8)
         tilemap, tiledict = tile.pixels_to_tiles(pixels, is_bg_chunk=True)
         assert_array_equal(tilemap, tilemap_expected)
         self.assertEqual(len(tiledict), 3)
@@ -95,7 +95,7 @@ class TestImport(unittest.TestCase):
             [  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9, ],
             [  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, ],
             [  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, ],
-            ], dtype=np.int8)
+            ], dtype=np.uint8)
         pal = tile.get_palette_from_file("test_data/gradient_palette.bin")
         pixels = tile.image_to_indexed_pixels(pal, "test_data/gradient.png", "test_debug.png")
         assert_array_equal(pixels, pixels_expected)
