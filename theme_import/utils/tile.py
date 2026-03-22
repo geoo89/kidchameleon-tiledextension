@@ -30,7 +30,7 @@ def np8bit8x8_to_tile(arr):
     return tile.tobytes()
 
 def blank_tile():
-    nptile = np.zeros((8, 8), dtype=np.int8)
+    nptile = np.zeros((8, 8), dtype=np.uint8)
     return np8bit8x8_to_tile(nptile)
 
 # Take an indexed image, change the palette, and save it.
@@ -53,7 +53,7 @@ def image_to_indexed_pixels(pal, filename, debugimg_out):
     mapimage.load()
     mapimage_indexed = mapimage.quantize(palette=palimage, dither=0)
     mapimage_indexed.save(debugimg_out)
-    pixels = np.array(mapimage_indexed, dtype=np.int8).reshape(mapimage.size[::-1])
+    pixels = np.array(mapimage_indexed, dtype=np.uint8)
     return pixels
 
 
